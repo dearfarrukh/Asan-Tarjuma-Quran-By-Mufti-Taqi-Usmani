@@ -279,8 +279,12 @@
 #quranPageImage{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:contain;              /* no cutting */
   object-position:center top;
+
+  transform:scaleX(1.06);          /* slight width fill */
+  transform-origin:center top;
+
   display:block;
 
   user-select:none;
@@ -706,11 +710,13 @@ function handleQuranTouchEnd(event){
     return;
   }
 
-  if(swipeDistance < 0){
-    goToNextQuranPage();
-  }else{
-    goToPreviousQuranPage();
-  }
+if(swipeDistance < 0){
+  // swipe left → go BACK (Arabic)
+  goToPreviousQuranPage();
+}else{
+  // swipe right → go NEXT (Arabic)
+  goToNextQuranPage();
+}
 }
 
 // =========================
