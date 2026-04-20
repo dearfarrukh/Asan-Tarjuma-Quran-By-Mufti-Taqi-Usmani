@@ -654,6 +654,158 @@ let quranIsTurning = false;
 
 
 
+
+// =========================
+// OPEN SURAH FROM INDEX
+// =========================
+function openSurahFromIndex(surahNumber){
+  let pageNumber = surahPageMap[surahNumber];
+
+  if(!pageNumber && pageNumber !== 0){
+    return;
+  }
+
+  let surahIndexPage = document.getElementById("surahIndexPage");
+  let readingPage = document.getElementById("readingPage");
+  let readingTopBar = document.getElementById("readingTopBar");
+  let readingContent = document.getElementById("readingContent");
+
+  if(surahIndexPage) surahIndexPage.style.display = "none";
+  if(readingPage) readingPage.style.display = "block";
+
+  if(readingTopBar) readingTopBar.classList.remove("show");
+  if(readingContent) readingContent.classList.remove("topBarVisible");
+
+  openReadingPage(pageNumber);
+}    
+
+
+// =========================
+// SURAH TO PAGE MAP
+// =========================
+const surahPageMap = {
+  1: 36,
+  2: 40,
+  3: 180,
+  4: 244,
+  5: 320,
+  6: 380,
+  7: 442,
+  8: 518,
+  9: 556,
+  10: 630,
+  11: 666,
+  12: 706,
+  13: 752,
+  14: 778,
+  15: 798,
+  16: 816,
+  17: 854,
+  18: 890,
+  19: 930,
+  20: 952,
+  21: 984,
+  22: 1012,
+  23: 1040,
+  24: 1062,
+  25: 1094,
+  26: 1114,
+  27: 1144,
+  28: 1168,
+  29: 1200,
+  30: 1234,
+  31: 1254,
+  32: 1268,
+  33: 1278,
+  34: 1314,
+  35: 1334,
+  36: 1350,
+  37: 1368,
+  38: 1390,
+  39: 1410,
+  40: 1432,
+  41: 1454,
+  42: 1470,
+  43: 1486,
+  44: 1508,
+  45: 1518,
+  46: 1530,
+  47: 1546,
+  48: 1560,
+  49: 1578,
+  50: 1590,
+  51: 1602,
+  52: 1614,
+  53: 1626,
+  54: 1638,
+  55: 1648,
+  56: 1660,
+  57: 1672,
+  58: 1688,
+  59: 1700,
+  60: 1712,
+  61: 1724,
+  62: 1732,
+  63: 1746,
+  64: 1754,
+  65: 1764,
+  66: 1772,
+  67: 1780,
+  68: 1790,
+  69: 1798,
+  70: 1806,
+  71: 1814,
+  72: 1824,
+  73: 1832,
+  74: 1842,
+  75: 1850,
+  76: 1858,
+  77: 1866,
+  78: 1874,
+  79: 1882,
+  80: 1888,
+  81: 1894,
+  82: 1898,
+  83: 1904,
+  84: 1910,
+  85: 1916,
+  86: 1918,
+  87: 1920,
+  88: 1923,
+  89: 1927,
+  90: 1931,
+  91: 1934,
+  92: 1937,
+  93: 1939,
+  94: 1941,
+  95: 1943,
+  96: 1946,
+  97: 1947,
+  98: 1949,
+  99: 1951,
+  100: 1953,
+  101: 1954,
+  102: 1955,
+  103: 1956,
+  104: 1958,
+  105: 1960,
+  106: 1962,
+  107: 1964,
+  108: 1965,
+  109: 1967,
+  110: 1969,
+  111: 1971,
+  112: 1973,
+  113: 1974,
+  114: 1974
+};
+
+
+
+
+
+
+    
 // =========================
 // CLOSE SURAH INDEX PAGE
 // =========================
