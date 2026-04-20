@@ -287,6 +287,7 @@
   touch-action:pan-y;
   transition:transform 0.22s ease;
   will-change:transform;
+  transform-origin:center center;
 }
 
 #pageUnderlay{
@@ -295,13 +296,19 @@
   bottom:0;
   left:0;
   right:0;
-  background:linear-gradient(90deg, rgba(0,0,0,0.06) 0%, rgba(255,255,255,0.00) 22%, rgba(255,255,255,0.00) 78%, rgba(0,0,0,0.08) 100%);
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,0.14) 0%,
+      rgba(0,0,0,0.05) 8%,
+      rgba(255,255,255,0.00) 24%,
+      rgba(255,255,255,0.00) 76%,
+      rgba(0,0,0,0.05) 92%,
+      rgba(0,0,0,0.14) 100%);
   opacity:0;
   transition:opacity 0.18s ease;
   pointer-events:none;
   z-index:1;
 }
-
 #quranPageImage{
   width:100%;
   height:100%;
@@ -324,9 +331,13 @@
   position:absolute;
   top:0;
   bottom:0;
-  width:18%;
-  right:-18%;
-  background:linear-gradient(90deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.18) 100%);
+  width:22%;
+  right:-22%;
+  background:linear-gradient(90deg,
+    rgba(0,0,0,0.00) 0%,
+    rgba(0,0,0,0.05) 28%,
+    rgba(0,0,0,0.14) 62%,
+    rgba(0,0,0,0.26) 100%);
   opacity:0;
   transition:opacity 0.18s ease;
   pointer-events:none;
@@ -1211,21 +1222,36 @@ function handleQuranTouchMove(event){
 
   let pageDragWrap = document.getElementById("pageDragWrap");
   let pageTurnShadow = document.getElementById("pageTurnShadow");
+  let pageUnderlay = document.getElementById("pageUnderlay");
+
+  let limitedDragX = currentDragX;
+
+  if(limitedDragX > 160) limitedDragX = 160;
+  if(limitedDragX < -160) limitedDragX = -160;
+
+  let rotateAmount = limitedDragX / 28;
+  let scaleAmount = 1 - (Math.abs(limitedDragX) / 1400);
 
   if(pageDragWrap){
-    pageDragWrap.style.transform = "translateX(" + currentDragX + "px)";
+    pageDragWrap.style.transform =
+      "translateX(" + limitedDragX + "px) rotate(" + rotateAmount + "deg) scale(" + scaleAmount + ")";
+  }
+
+  if(pageUnderlay){
+    pageUnderlay.style.opacity = Math.min(Math.abs(limitedDragX) / 120, 1).toString();
   }
 
   if(pageTurnShadow){
-    if(currentDragX > 0){
-      pageTurnShadow.style.right = "-18%";
-      pageTurnShadow.style.opacity = Math.min(currentDragX / 160, 0.9).toString();
-    }else if(currentDragX < 0){
+    pageTurnShadow.style.opacity = Math.min(Math.abs(limitedDragX) / 120, 0.95).toString();
+
+    if(limitedDragX > 0){
+      pageTurnShadow.style.left = "auto";
+      pageTurnShadow.style.right = "-22%";
+      pageTurnShadow.style.transform = "scaleX(1)";
+    }else if(limitedDragX < 0){
       pageTurnShadow.style.right = "auto";
-      pageTurnShadow.style.left = "-18%";
-      pageTurnShadow.style.opacity = Math.min(Math.abs(currentDragX) / 160, 0.9).toString();
-    }else{
-      pageTurnShadow.style.opacity = "0";
+      pageTurnShadow.style.left = "-22%";
+      pageTurnShadow.style.transform = "scaleX(-1)";
     }
   }
 }
@@ -1250,33 +1276,61 @@ function handleQuranTouchEnd(event){
   let pageTurnShadow = document.getElementById("pageTurnShadow");
 
   if(pageDragWrap){
-    pageDragWrap.style.transition = "transform 0.22s ease";
-  }
-
-  if(pageUnderlay){
-    pageUnderlay.style.opacity = "0";
-  }
-
-  if(pageTurnShadow){
-    pageTurnShadow.style.opacity = "0";
+    pageDragWrap.style.transition = "transform 0.24s ease";
   }
 
   if(Math.abs(swipeDistance) < dragTurnThreshold){
     if(pageDragWrap){
-      pageDragWrap.style.transform = "translateX(0px)";
+      pageDragWrap.style.transform = "translateX(0px) rotate(0deg) scale(1)";
     }
+
+    if(pageUnderlay){
+      pageUnderlay.style.opacity = "0";
+    }
+
+    if(pageTurnShadow){
+      pageTurnShadow.style.opacity = "0";
+    }
+
     return;
   }
 
   if(pageDragWrap){
-    pageDragWrap.style.transform = "translateX(0px)";
+    if(swipeDistance < 0){
+      pageDragWrap.style.transform = "translateX(-100%) rotate(-6deg) scale(0.98)";
+    }else{
+      pageDragWrap.style.transform = "translateX(100%) rotate(6deg) scale(0.98)";
+    }
   }
 
-  if(swipeDistance < 0){
-    goToPreviousQuranPage();
-  }else{
-    goToNextQuranPage();
-  }
+  setTimeout(function(){
+
+    if(pageUnderlay){
+      pageUnderlay.style.opacity = "0";
+    }
+
+    if(pageTurnShadow){
+      pageTurnShadow.style.opacity = "0";
+    }
+
+    if(pageDragWrap){
+      pageDragWrap.style.transition = "none";
+      pageDragWrap.style.transform = "translateX(0px) rotate(0deg) scale(1)";
+    }
+
+    if(swipeDistance < 0){
+      goToPreviousQuranPage();
+    }else{
+      goToNextQuranPage();
+    }
+
+    setTimeout(function(){
+      if(pageDragWrap){
+        pageDragWrap.style.transition = "transform 0.22s ease";
+      }
+    }, 30);
+
+  }, 180);
 }
 
 // =========================
