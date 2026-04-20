@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
   <title>Asan Tarjuma Quran</title>
 
   <style>
     /* =========================
-       GLOBAL PAGE STYLE
+       GLOBAL
     ========================= */
     *{
       box-sizing:border-box;
@@ -19,9 +22,9 @@
     html, body{
       width:100%;
       height:100%;
+      overflow:hidden;
       font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       background:#f5f5f7;
-      overflow:hidden;
     }
 
     body{
@@ -36,9 +39,9 @@
        APP WRAPPER
     ========================= */
     #app{
+      position:relative;
       width:100%;
       height:100%;
-      position:relative;
       overflow:hidden;
       background:#f5f5f7;
     }
@@ -60,7 +63,7 @@
     }
 
     /* =========================
-       HOME PAGE TITLE AREA
+       HOME TITLE AREA
     ========================= */
     #homeTitleWrap{
       width:100%;
@@ -72,159 +75,125 @@
     #homeTitle{
       font-size:28px;
       font-weight:700;
-      color:#111;
+      color:#111111;
       letter-spacing:-0.3px;
       margin-bottom:8px;
     }
 
     #homeSubtitle{
       font-size:14px;
-      color:#666;
+      color:#666666;
       line-height:1.5;
     }
 
-   
-/* =========================
-   QURAN HOME CARDS
-========================= */
-#quranHomeCards{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  width:100%;
-  max-width:700px;
-  margin:0 auto;
-  padding:10px 10px 20px 10px;
-}
+    /* =========================
+       QURAN HOME CARDS
+    ========================= */
+    #quranHomeCards{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      width:100%;
+      max-width:700px;
+      margin:0 auto;
+      padding:10px 10px 20px 10px;
+    }
 
-/* =========================
-   SINGLE HOME CARD
-========================= */
-.quranHomeCard{
-  width:100%;
-  min-height:110px;
-  border-radius:999px;
-  cursor:pointer;
-  transition:transform 0.18s ease, box-shadow 0.18s ease;
-}
+    /* =========================
+       SINGLE HOME CARD
+    ========================= */
+    .quranHomeCard{
+      width:100%;
+      min-height:110px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-/* =========================
-   CARD PRESS EFFECT
-========================= */
-.quranHomeCard:active{
-  transform:scale(0.98);
-}
+    .quranHomeCard:active{
+      transform:scale(0.98);
+    }
 
-/* =========================
-   CODED CARD STYLE
-========================= */
-.codedCard{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:0 24px 0 20px;
-  background:#ffffff;
-  border:2px solid #111111;
-  box-shadow:0 10px 24px rgba(0,0,0,0.10);
-  overflow:hidden;
-}
+    /* =========================
+       CODED CARD STYLE
+    ========================= */
+    .codedCard{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:0 24px 0 20px;
+      background:#ffffff;
+      border:2px solid #111111;
+      box-shadow:0 10px 24px rgba(0,0,0,0.10);
+      overflow:hidden;
+    }
 
-/* =========================
-   DECORATIVE CORNER LINES
-========================= */
-.codedCard::before,
-.codedCard::after{
-  content:"";
-  position:absolute;
-  width:34px;
-  height:34px;
-  border-color:#111111;
-  opacity:0.9;
-}
+    /* =========================
+       CARD DECORATION
+    ========================= */
+    .codedCard::before,
+    .codedCard::after{
+      content:"";
+      position:absolute;
+      width:34px;
+      height:34px;
+      opacity:0.9;
+      pointer-events:none;
+    }
 
-.codedCard::before{
-  top:12px;
-  left:12px;
-  border-top:2px solid #111111;
-  border-left:2px solid #111111;
-  border-top-left-radius:14px;
-}
+    .codedCard::before{
+      top:12px;
+      left:12px;
+      border-top:2px solid #111111;
+      border-left:2px solid #111111;
+      border-top-left-radius:14px;
+    }
 
-.codedCard::after{
-  right:12px;
-  bottom:12px;
-  border-right:2px solid #111111;
-  border-bottom:2px solid #111111;
-  border-bottom-right-radius:14px;
-}
+    .codedCard::after{
+      right:12px;
+      bottom:12px;
+      border-right:2px solid #111111;
+      border-bottom:2px solid #111111;
+      border-bottom-right-radius:14px;
+    }
 
-/* =========================
-   CARD ICON
-========================= */
-.codedCardIcon{
-  width:64px;
-  min-width:64px;
-  height:64px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:34px;
-  background:#f7f7f7;
-  border:2px solid #111111;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-  position:relative;
-  z-index:2;
-}
+    /* =========================
+       CARD ICON
+    ========================= */
+    .codedCardIcon{
+      width:64px;
+      min-width:64px;
+      height:64px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      background:#f7f7f7;
+      border:2px solid #111111;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      position:relative;
+      z-index:2;
+    }
 
-/* =========================
-   CARD TEXT
-========================= */
-.codedCardText{
-  flex:1;
-  font-size:26px;
-  font-weight:700;
-  color:#111111;
-  letter-spacing:-0.3px;
-  line-height:1.1;
-  position:relative;
-  z-index:2;
-  text-align:left;
-}
+    /* =========================
+       CARD TEXT
+    ========================= */
+    .codedCardText{
+      flex:1;
+      font-size:26px;
+      font-weight:700;
+      color:#111111;
+      letter-spacing:-0.3px;
+      line-height:1.1;
+      position:relative;
+      z-index:2;
+      text-align:left;
+    }
 
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-@media (max-width:480px){
-  .quranHomeCard{
-    min-height:96px;
-  }
-
-  .codedCard{
-    padding:0 20px 0 16px;
-    gap:14px;
-  }
-
-  .codedCardIcon{
-    width:56px;
-    min-width:56px;
-    height:56px;
-    font-size:30px;
-    border-radius:16px;
-  }
-
-  .codedCardText{
-    font-size:22px;
-  }
-}
-
-
-    
     /* =========================
        READING PAGE
-       (we are adding shell now,
-       full function later)
     ========================= */
     #readingPage{
       display:none;
@@ -238,8 +207,7 @@
     }
 
     /* =========================
-       TOP BAR
-       hidden first
+       READING TOP BAR
     ========================= */
     #readingTopBar{
       position:absolute;
@@ -274,8 +242,7 @@
     }
 
     /* =========================
-       READING CONTENT AREA
-       page shrinks when top bar shows
+       READING CONTENT
     ========================= */
     #readingContent{
       position:absolute;
@@ -296,8 +263,7 @@
     }
 
     /* =========================
-       PAGE IMAGE HOLDER
-       real page-turn effect later
+       PAGE VIEWER
     ========================= */
     #pageViewer{
       width:100%;
@@ -305,9 +271,9 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:0;
       position:relative;
       background:#d9d0c2;
+      overflow:hidden;
     }
 
     #quranPageImage{
@@ -323,7 +289,7 @@
     }
 
     /* =========================
-       PLACEHOLDER TEXT
+       READING PLACEHOLDER
     ========================= */
     #readingPlaceholder{
       position:absolute;
@@ -334,7 +300,7 @@
       padding:14px 18px;
       border-radius:16px;
       font-size:14px;
-      color:#444;
+      color:#444444;
       box-shadow:0 8px 24px rgba(0,0,0,0.10);
       text-align:center;
       line-height:1.5;
@@ -342,7 +308,6 @@
 
     /* =========================
        BOTTOM BAR
-       always visible
     ========================= */
     #bottomBar{
       position:absolute;
@@ -366,7 +331,7 @@
       text-align:center;
       font-size:12px;
       font-weight:600;
-      color:#222;
+      color:#222222;
       line-height:1.2;
     }
 
@@ -377,7 +342,7 @@
     }
 
     /* =========================
-       MOBILE RESPONSIVE
+       MOBILE
     ========================= */
     @media (max-width:480px){
       #homeTitle{
@@ -391,6 +356,27 @@
       #quranHomeCards{
         gap:14px;
       }
+
+      .quranHomeCard{
+        min-height:96px;
+      }
+
+      .codedCard{
+        padding:0 20px 0 16px;
+        gap:14px;
+      }
+
+      .codedCardIcon{
+        width:56px;
+        min-width:56px;
+        height:56px;
+        font-size:30px;
+        border-radius:16px;
+      }
+
+      .codedCardText{
+        font-size:22px;
+      }
     }
   </style>
 </head>
@@ -399,62 +385,60 @@
   <div id="app">
 
     <!-- =========================
-     HOME PAGE
-========================= -->
-<div id="homePage">
+         HOME PAGE
+    ========================= -->
+    <div id="homePage">
 
-  <!-- =========================
-       HOME PAGE TITLE AREA
-  ========================= -->
-  <div id="homeTitleWrap">
-    <div id="homeTitle">Asan Tarjuma Quran</div>
-    <div id="homeSubtitle">Choose from the 4 cards below</div>
-  </div>
+      <!-- =========================
+           HOME TITLE AREA
+      ========================= -->
+      <div id="homeTitleWrap">
+        <div id="homeTitle">Asan Tarjuma Quran</div>
+        <div id="homeSubtitle">Choose from the 4 cards below</div>
+      </div>
 
-  <!-- =========================
-       4 CARD GRID
-  ========================= -->
-  <div id="quranHomeCards">
+      <!-- =========================
+           QURAN HOME CARDS
+      ========================= -->
+      <div id="quranHomeCards">
 
-    <div class="quranHomeCard codedCard" onclick="openBookmarksPage()">
-      <div class="codedCardIcon">🔖</div>
-      <div class="codedCardText">Bookmarks</div>
+        <div class="quranHomeCard codedCard" onclick="openBookmarksPage()">
+          <div class="codedCardIcon">🔖</div>
+          <div class="codedCardText">Bookmarks</div>
+        </div>
+
+        <div class="quranHomeCard codedCard" onclick="openSurahIndexPage()">
+          <div class="codedCardIcon">📖</div>
+          <div class="codedCardText">Surah Index</div>
+        </div>
+
+        <div class="quranHomeCard codedCard" onclick="openGoToPageCard()">
+          <div class="codedCardIcon">#</div>
+          <div class="codedCardText">Go To Page</div>
+        </div>
+
+        <div class="quranHomeCard codedCard" onclick="openFavoritePage()">
+          <div class="codedCardIcon">⭐</div>
+          <div class="codedCardText">Favorite</div>
+        </div>
+
+      </div>
     </div>
-
-    <div class="quranHomeCard codedCard" onclick="openSurahIndexPage()">
-      <div class="codedCardIcon">📖</div>
-      <div class="codedCardText">Surah Index</div>
-    </div>
-
-    <div class="quranHomeCard codedCard" onclick="openGoToPageCard()">
-      <div class="codedCardIcon">#</div>
-      <div class="codedCardText">Go To Page</div>
-    </div>
-
-    <div class="quranHomeCard codedCard" onclick="openFavoritePage()">
-      <div class="codedCardIcon">⭐</div>
-      <div class="codedCardText">Favorite</div>
-    </div>
-
-  </div>
-
-</div>
 
     <!-- =========================
          READING PAGE
     ========================= -->
     <div id="readingPage" onclick="handleReadingPageTap(event)">
-        </div>
 
       <!-- =========================
-           TOP BAR
+           READING TOP BAR
       ========================= -->
       <div id="readingTopBar">
         <button id="readingBackBtn" onclick="closeReadingPage()">←</button>
       </div>
 
       <!-- =========================
-           READING CONTENT AREA
+           READING CONTENT
       ========================= -->
       <div id="readingContent">
 
@@ -462,8 +446,11 @@
              PAGE VIEWER
         ========================= -->
         <div id="pageViewer">
-          <img id="quranPageImage" src="" alt="Quran Page">
-          <div id="readingPlaceholder">Quran reading page<br>real page turn effect comes later</div>
+          <img id="quranPageImage" src="" alt="Quran Page" />
+          <div id="readingPlaceholder">
+            Quran reading page<br />
+            real page turn effect comes later
+          </div>
         </div>
 
       </div>
@@ -477,14 +464,17 @@
         <span class="bottomBarIcon">🔖</span>
         Bookmarks
       </div>
+
       <div class="bottomBarItem">
         <span class="bottomBarIcon">📖</span>
         Surah
       </div>
+
       <div class="bottomBarItem">
         <span class="bottomBarIcon">#</span>
         Page
       </div>
+
       <div class="bottomBarItem">
         <span class="bottomBarIcon">⭐</span>
         Favorite
@@ -501,7 +491,6 @@
 
     // =========================
     // OPEN BOOKMARKS PAGE
-    // for now opens reading page shell
     // =========================
     function openBookmarksPage(){
       openReadingPage(0);
@@ -509,7 +498,6 @@
 
     // =========================
     // OPEN SURAH INDEX PAGE
-    // for now opens reading page shell
     // =========================
     function openSurahIndexPage(){
       openReadingPage(0);
@@ -517,7 +505,6 @@
 
     // =========================
     // OPEN GO TO PAGE CARD
-    // for now opens reading page shell
     // =========================
     function openGoToPageCard(){
       openReadingPage(0);
@@ -525,7 +512,6 @@
 
     // =========================
     // OPEN FAVORITE PAGE
-    // for now opens reading page shell
     // =========================
     function openFavoritePage(){
       openReadingPage(0);
@@ -569,7 +555,6 @@
 
     // =========================
     // HANDLE READING PAGE TAP
-    // single tap shows/hides top bar
     // =========================
     function handleReadingPageTap(event){
       let target = event.target;
@@ -591,8 +576,6 @@
 
     // =========================
     // LOAD QURAN PAGE IMAGE
-    // Quran = 0 to 1000
-    // Quran2 = 1001 to 1975
     // =========================
     function loadQuranPageImage(pageNumber){
       let pageImage = document.getElementById("quranPageImage");
@@ -611,6 +594,8 @@
 
     // =========================
     // GET QURAN PAGE IMAGE PATH
+    // Quran = 0 to 1000
+    // Quran2 = 1001 to 1975
     // =========================
     function getQuranPageImagePath(pageNumber){
       if(pageNumber >= 0 && pageNumber <= 1000){
