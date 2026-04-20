@@ -86,45 +86,47 @@
     /* =========================
        4 CARD GRID
     ========================= */
-  #quranHomeCards{
+/* =========================
+   QURAN HOME CARDS (VERTICAL BIG CARDS)
+========================= */
+#quranHomeCards{
   display:flex;
-  flex-direction:row;
-  gap:16px;
+  flex-direction:column;
+  gap:18px;
   width:100%;
-  overflow-x:auto;
-  padding:10px 6px 14px 6px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+  max-width:700px;
+  margin:0 auto;
+  padding:10px 10px 20px 10px;
 }
 
-    .quranHomeCard{
-  position:relative;
-  min-width:70%;
-  max-width:80%;
-  height:auto;
-  background:rgba(255,255,255,0.88);
-  border-radius:26px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-  border:1px solid rgba(255,255,255,0.7);
+/* =========================
+   SINGLE CARD
+========================= */
+.quranHomeCard{
+  width:100%;
+  border-radius:30px;
   overflow:hidden;
   cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,0.10);
   transition:transform 0.18s ease, box-shadow 0.18s ease;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  scroll-snap-align:center;
 }
-    .quranHomeCard:active{
-      transform:scale(0.98);
-      box-shadow:0 6px 18px rgba(0,0,0,0.10);
-    }
 
-    .quranHomeCard img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+/* =========================
+   CARD PRESS EFFECT
+========================= */
+.quranHomeCard:active{
+  transform:scale(0.97);
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   CARD IMAGE (IMPORTANT)
+========================= */
+.quranHomeCard img{
+  width:100%;
+  height:auto;
+  display:block;
+}
 
     /* =========================
        READING PAGE
@@ -319,26 +321,25 @@
       <!-- =========================
            4 CARD GRID
       ========================= -->
-      <div id="quranHomeCards">
+   <div id="quranHomeCards">
 
-        <div class="quranHomeCard" onclick="openBookmarksPage()">
-          <img src="Images/Bookmarks.png" alt="Bookmarks">
-        </div>
+  <div class="quranHomeCard" onclick="openBookmarksPage()">
+    <img src="Images/Bookmarks.png">
+  </div>
 
-        <div class="quranHomeCard" onclick="openSurahIndexPage()">
-          <img src="Images/Surahindex.png" alt="Surah Index">
-        </div>
+  <div class="quranHomeCard" onclick="openSurahIndexPage()">
+    <img src="Images/Surahindex.png">
+  </div>
 
-        <div class="quranHomeCard" onclick="openGoToPageCard()">
-          <img src="Images/Gotopage.png" alt="Go To Page">
-        </div>
+  <div class="quranHomeCard" onclick="openGoToPageCard()">
+    <img src="Images/Gotopage.png">
+  </div>
 
-        <div class="quranHomeCard" onclick="openFavoritePage()">
-          <img src="Images/Farvorite.png" alt="Favorite">
-        </div>
+  <div class="quranHomeCard" onclick="openFavoritePage()">
+    <img src="Images/Farvorite.png">
+  </div>
 
-      </div>
-    </div>
+</div>
 
     <!-- =========================
          READING PAGE
