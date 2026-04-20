@@ -276,17 +276,19 @@
       overflow:hidden;
     }
 
-    #quranPageImage{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:center top;
-      display:block;
-      user-select:none;
-      -webkit-user-drag:none;
-      pointer-events:none;
-      background:#f7f1e4;
-    }
+   #quranPageImage{
+  width:100%;
+  height:100%;
+  object-fit:cover;              /* 🔥 key change */
+  object-position:center top;    /* keep top aligned */
+  display:block;
+
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+
+  background:#f7f1e4;
+}
 
     /* =========================
        READING PLACEHOLDER
