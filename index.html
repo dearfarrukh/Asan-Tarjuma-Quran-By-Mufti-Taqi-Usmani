@@ -265,22 +265,22 @@
     /* =========================
        PAGE VIEWER
     ========================= */
-    #pageViewer{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      background:#d9d0c2;
-      overflow:hidden;
-    }
-
-   #quranPageImage{
+  #pageViewer{
   width:100%;
   height:100%;
-  object-fit:cover;              /* 🔥 key change */
-  object-position:center top;    /* keep top aligned */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:#d9d0c2;
+  overflow:hidden;
+}
+
+#quranPageImage{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
   display:block;
 
   user-select:none;
@@ -288,7 +288,30 @@
   pointer-events:none;
 
   background:#f7f1e4;
+  transition:transform 0.22s ease, opacity 0.22s ease;
 }
+
+
+    /* =========================
+   PAGE TURN ANIMATION
+========================= */
+.pageTurnNext{
+  transform:translateX(-100%);
+  opacity:0.75;
+}
+
+.pageTurnPrev{
+  transform:translateX(100%);
+  opacity:0.75;
+}
+
+.pageTurnReset{
+  transform:translateX(0);
+  opacity:1;
+}
+
+
+    
 
     /* =========================
        READING PLACEHOLDER
@@ -430,7 +453,10 @@
     <!-- =========================
          READING PAGE
     ========================= -->
-    <div id="readingPage" onclick="handleReadingPageTap(event)">
+  <div id="readingPage"
+     onclick="handleReadingPageTap(event)"
+     ontouchstart="handleQuranTouchStart(event)"
+     ontouchend="handleQuranTouchEnd(event)">
 
       <!-- =========================
            READING TOP BAR
@@ -518,10 +544,17 @@ padding:0 14px;
   </div>
 
   <script>
+
+
+    
     // =========================
-    // CURRENT QURAN PAGE
-    // =========================
-    let currentQuranPage = 0;
+// CURRENT QURAN PAGE
+// =========================
+let currentQuranPage = 0;
+let quranTouchStartX = 0;
+let quranTouchEndX = 0;
+let quranSwipeMinDistance = 40;
+let quranIsTurning = false;
 
     // =========================
     // OPEN BOOKMARKS PAGE
@@ -608,24 +641,25 @@ padding:0 14px;
       }
     }
 
-    // =========================
-    // LOAD QURAN PAGE IMAGE
-    // =========================
-    function loadQuranPageImage(pageNumber){
-      let pageImage = document.getElementById("quranPageImage");
-      let placeholder = document.getElementById("readingPlaceholder");
+   // =========================
+// LOAD QURAN PAGE IMAGE
+// =========================
+function loadQuranPageImage(pageNumber){
+  let pageImage = document.getElementById("quranPageImage");
+  let placeholder = document.getElementById("readingPlaceholder");
 
-      let imagePath = getQuranPageImagePath(pageNumber);
+  currentQuranPage = pageNumber;
 
-      if(pageImage){
-        pageImage.src = imagePath;
-      }
+  let imagePath = getQuranPageImagePath(pageNumber);
 
-      if(placeholder){
-        placeholder.innerHTML = "Quran page " + pageNumber + "<br>" + imagePath;
-      }
-    }
+  if(pageImage){
+    pageImage.src = imagePath;
+  }
 
+  if(placeholder){
+    placeholder.innerHTML = "Page " + pageNumber;
+  }
+}
     // =========================
     // GET QURAN PAGE IMAGE PATH
     // Quran = 0 to 1000
@@ -651,6 +685,93 @@ function refreshQuranApp(){
   window.location.reload();
 }
 
+// =========================
+// HANDLE QURAN TOUCH START
+// =========================
+function handleQuranTouchStart(event){
+  if(!event.touches || !event.touches.length) return;
+  quranTouchStartX = event.touches[0].clientX;
+}
+
+// =========================
+// HANDLE QURAN TOUCH END
+// =========================
+function handleQuranTouchEnd(event){
+  if(!event.changedTouches || !event.changedTouches.length) return;
+
+  quranTouchEndX = event.changedTouches[0].clientX;
+  let swipeDistance = quranTouchEndX - quranTouchStartX;
+
+  if(Math.abs(swipeDistance) < quranSwipeMinDistance){
+    return;
+  }
+
+  if(swipeDistance < 0){
+    goToNextQuranPage();
+  }else{
+    goToPreviousQuranPage();
+  }
+}
+
+// =========================
+// GO TO NEXT QURAN PAGE
+// =========================
+function goToNextQuranPage(){
+  if(quranIsTurning) return;
+  if(currentQuranPage >= 1975) return;
+
+  let pageImage = document.getElementById("quranPageImage");
+  if(!pageImage) return;
+
+  quranIsTurning = true;
+  pageImage.classList.remove("pageTurnPrev", "pageTurnReset");
+  pageImage.classList.add("pageTurnNext");
+
+  setTimeout(function(){
+    currentQuranPage++;
+    loadQuranPageImage(currentQuranPage);
+
+    pageImage.classList.remove("pageTurnNext", "pageTurnPrev");
+    pageImage.classList.add("pageTurnReset");
+
+    setTimeout(function(){
+      quranIsTurning = false;
+    }, 220);
+  }, 180);
+}
+
+// =========================
+// GO TO PREVIOUS QURAN PAGE
+// =========================
+function goToPreviousQuranPage(){
+  if(quranIsTurning) return;
+  if(currentQuranPage <= 0) return;
+
+  let pageImage = document.getElementById("quranPageImage");
+  if(!pageImage) return;
+
+  quranIsTurning = true;
+  pageImage.classList.remove("pageTurnNext", "pageTurnReset");
+  pageImage.classList.add("pageTurnPrev");
+
+  setTimeout(function(){
+    currentQuranPage--;
+    loadQuranPageImage(currentQuranPage);
+
+    pageImage.classList.remove("pageTurnNext", "pageTurnPrev");
+    pageImage.classList.add("pageTurnReset");
+
+    setTimeout(function(){
+      quranIsTurning = false;
+    }, 220);
+  }, 180);
+}
+
+
+
+    
+
+    
     
   </script>
 
