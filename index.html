@@ -457,6 +457,71 @@
      ontouchstart="handleQuranTouchStart(event)"
      ontouchend="handleQuranTouchEnd(event)">
 
+
+
+    <!-- =========================
+     SURAH INDEX PAGE
+========================= -->
+<div id="surahIndexPage" style="
+display:none;
+position:absolute;
+top:0;
+left:0;
+right:0;
+bottom:78px;
+background:#f5f5f7;
+overflow-y:auto;
+-webkit-overflow-scrolling:touch;
+padding:12px;
+">
+
+  <!-- TOP BAR -->
+  <div style="
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  ">
+
+    <button onclick="closeSurahIndexPage()" style="
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    background:#ffffff;
+    box-shadow:0 4px 12px rgba(0,0,0,0.10);
+    font-size:18px;
+    ">
+      ←
+    </button>
+
+    <div style="
+    font-size:18px;
+    font-weight:700;
+    ">
+      Surah Index
+    </div>
+
+  </div>
+
+  <!-- LIST -->
+  <div id="surahList" style="
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:10px;
+  "></div>
+
+</div>
+    
+
       <!-- =========================
            READING TOP BAR
       ========================= -->
@@ -565,9 +630,67 @@ let quranIsTurning = false;
     // =========================
     // OPEN SURAH INDEX PAGE
     // =========================
-    function openSurahIndexPage(){
-      openReadingPage(0);
-    }
+  function openSurahIndexPage(){
+
+  let homePage = document.getElementById("homePage");
+  let readingPage = document.getElementById("readingPage");
+  let surahIndexPage = document.getElementById("surahIndexPage");
+
+  if(homePage) homePage.style.display = "none";
+  if(readingPage) readingPage.style.display = "none";
+  if(surahIndexPage) surahIndexPage.style.display = "block";
+
+  renderSurahList();
+}
+
+
+
+
+
+
+    function closeSurahIndexPage(){
+  let homePage = document.getElementById("homePage");
+  let surahIndexPage = document.getElementById("surahIndexPage");
+
+  if(surahIndexPage) surahIndexPage.style.display = "none";
+  if(homePage) homePage.style.display = "block";
+}
+
+
+
+
+
+
+    function renderSurahList(){
+
+  let container = document.getElementById("surahList");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  for(let i=1; i<=114; i++){
+
+    let item = document.createElement("div");
+
+    item.style = `
+      padding:14px;
+      background:#ffffff;
+      border-radius:16px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.06);
+      font-weight:600;
+      font-size:16px;
+      cursor:pointer;
+    `;
+
+    item.innerText = "Surah " + i;
+
+    item.onclick = function(){
+      openSurahFromIndex(i);
+    };
+
+    container.appendChild(item);
+  }
+}
 
     // =========================
     // OPEN GO TO PAGE CARD
