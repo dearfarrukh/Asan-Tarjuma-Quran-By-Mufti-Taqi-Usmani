@@ -344,24 +344,23 @@
   z-index:3;
 }
 
-    /* =========================
+/* =========================
    PAGE TURN ANIMATION
 ========================= */
 .pageTurnNext{
-  transform:translateX(-100%);
-  opacity:0.75;
-}
-
-.pageTurnPrev{
-  transform:translateX(100%);
-  opacity:0.75;
-}
-
-.pageTurnReset{
-  transform:translateX(0);
+  transform:none;
   opacity:1;
 }
 
+.pageTurnPrev{
+  transform:none;
+  opacity:1;
+}
+
+.pageTurnReset{
+  transform:none;
+  opacity:1;
+}
 
     
 
@@ -1340,24 +1339,14 @@ function goToNextQuranPage(){
   if(quranIsTurning) return;
   if(currentQuranPage >= 1975) return;
 
-  let pageImage = document.getElementById("quranPageImage");
-  if(!pageImage) return;
-
   quranIsTurning = true;
-  pageImage.classList.remove("pageTurnPrev", "pageTurnReset");
-  pageImage.classList.add("pageTurnNext");
+
+  currentQuranPage++;
+  loadQuranPageImage(currentQuranPage);
 
   setTimeout(function(){
-    currentQuranPage++;
-    loadQuranPageImage(currentQuranPage);
-
-    pageImage.classList.remove("pageTurnNext", "pageTurnPrev");
-    pageImage.classList.add("pageTurnReset");
-
-    setTimeout(function(){
-      quranIsTurning = false;
-    }, 220);
-  }, 180);
+    quranIsTurning = false;
+  }, 120);
 }
 
 // =========================
@@ -1367,26 +1356,15 @@ function goToPreviousQuranPage(){
   if(quranIsTurning) return;
   if(currentQuranPage <= 0) return;
 
-  let pageImage = document.getElementById("quranPageImage");
-  if(!pageImage) return;
-
   quranIsTurning = true;
-  pageImage.classList.remove("pageTurnNext", "pageTurnReset");
-  pageImage.classList.add("pageTurnPrev");
+
+  currentQuranPage--;
+  loadQuranPageImage(currentQuranPage);
 
   setTimeout(function(){
-    currentQuranPage--;
-    loadQuranPageImage(currentQuranPage);
-
-    pageImage.classList.remove("pageTurnNext", "pageTurnPrev");
-    pageImage.classList.add("pageTurnReset");
-
-    setTimeout(function(){
-      quranIsTurning = false;
-    }, 220);
-  }, 180);
+    quranIsTurning = false;
+  }, 120);
 }
-
 
 
     
