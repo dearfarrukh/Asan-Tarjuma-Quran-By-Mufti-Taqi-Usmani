@@ -29,10 +29,16 @@
 
     body{
       position:relative;
+      user-select:none;
+      -webkit-user-select:none;
     }
 
     button, input{
       font-family:inherit;
+    }
+
+    button{
+      cursor:pointer;
     }
 
     /* =========================
@@ -74,7 +80,7 @@
 
     #homeTitle{
       font-size:28px;
-      font-weight:700;
+      font-weight:800;
       color:#111111;
       letter-spacing:-0.3px;
       margin-bottom:8px;
@@ -129,9 +135,6 @@
       overflow:hidden;
     }
 
-    /* =========================
-       CARD DECORATION
-    ========================= */
     .codedCard::before,
     .codedCard::after{
       content:"";
@@ -158,9 +161,6 @@
       border-bottom-right-radius:14px;
     }
 
-    /* =========================
-       CARD ICON
-    ========================= */
     .codedCardIcon{
       width:64px;
       min-width:64px;
@@ -177,13 +177,10 @@
       z-index:2;
     }
 
-    /* =========================
-       CARD TEXT
-    ========================= */
     .codedCardText{
       flex:1;
       font-size:26px;
-      font-weight:700;
+      font-weight:800;
       color:#111111;
       letter-spacing:-0.3px;
       line-height:1.1;
@@ -201,9 +198,10 @@
       top:0;
       left:0;
       right:0;
-      bottom:78px;
-      background:#e9e6dd;
+      bottom:0;
+      background:#d9d0c2;
       overflow:hidden;
+      z-index:20;
     }
 
     /* =========================
@@ -211,18 +209,19 @@
     ========================= */
     #readingTopBar{
       position:absolute;
-      top:-70px;
+      top:-74px;
       left:0;
       right:0;
-      height:62px;
+      height:68px;
       background:rgba(248,248,248,0.96);
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(0,0,0,0.07);
       display:flex;
       align-items:center;
-      padding:0 14px;
-      z-index:20;
+      justify-content:space-between;
+      padding:10px 14px 8px 14px;
+      z-index:80;
       transition:top 0.28s ease;
     }
 
@@ -230,165 +229,93 @@
       top:0;
     }
 
-    #readingBackBtn{
-      width:42px;
-      height:42px;
+    .topCircleBtn{
+      width:44px;
+      height:44px;
       border:none;
       border-radius:50%;
       background:#ffffff;
-      box-shadow:0 4px 12px rgba(0,0,0,0.10);
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
       font-size:20px;
-      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    #readingTitleCenter{
+      position:absolute;
+      left:70px;
+      right:116px;
+      top:10px;
+      bottom:8px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      pointer-events:none;
+    }
+
+    #readingSurahTitle{
+      font-size:15px;
+      font-weight:800;
+      color:#111;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:100%;
+    }
+
+    #readingPageNumber{
+      font-size:12px;
+      font-weight:700;
+      color:#666;
+      margin-top:2px;
+    }
+
+    #readingRightButtons{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:auto;
+    }
+
+    .savedBtnActive{
+      background:#111111 !important;
+      color:#ffffff !important;
     }
 
     /* =========================
-       READING CONTENT
+       PAGE VIEWER
     ========================= */
-    #readingContent{
+    #pageViewer{
       position:absolute;
       top:0;
       left:0;
       right:0;
       bottom:0;
-      transition:top 0.28s ease;
       background:#d9d0c2;
+      overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
+      touch-action:pan-y;
     }
 
-    #readingContent.topBarVisible{
-      top:62px;
+    #quranPageImage{
+      width:100%;
+      height:100%;
+      object-fit:fill;
+      object-position:center top;
+      display:block;
+      user-select:none;
+      -webkit-user-drag:none;
+      pointer-events:none;
+      background:#f7f1e4;
+      transition:transform 0.22s ease;
+      will-change:transform;
     }
 
-  /* =========================
-   PAGE VIEWER
-========================= */
-#pageViewer{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  background:#d9d0c2;
-  overflow:hidden;
-}
-
-#underPageImage{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:fill;
-  object-position:center top;
-  display:block;
-  z-index:1;
-  user-select:none;
-  -webkit-user-drag:none;
-  pointer-events:none;
-  background:#f7f1e4;
-}
-
-
-    
-#pageDragWrap{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  touch-action:pan-y;
-  transition:transform 0.22s ease;
-  will-change:transform;
-  transform-origin:right center;
-  z-index:3;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-}
-
-#pageUnderlay{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background:
-    linear-gradient(90deg,
-      rgba(0,0,0,0.14) 0%,
-      rgba(0,0,0,0.05) 8%,
-      rgba(255,255,255,0.00) 24%,
-      rgba(255,255,255,0.00) 76%,
-      rgba(0,0,0,0.05) 92%,
-      rgba(0,0,0,0.14) 100%);
-  opacity:0;
-  transition:opacity 0.18s ease;
-  pointer-events:none;
-  z-index:1;
-}
-#quranPageImage{
-  width:100%;
-  height:100%;
-  object-fit:fill;
-  object-position:center top;
-  display:block;
-  position:relative;
-  z-index:2;
-
-  user-select:none;
-  -webkit-user-drag:none;
-  pointer-events:none;
-
-  background:#f7f1e4;
-  transition:none;
-  will-change:transform;
-}
-
-#pageTurnShadow{
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:30%;
-  left:0;
-  background:linear-gradient(90deg,
-    rgba(0,0,0,0.22) 0%,
-    rgba(0,0,0,0.12) 20%,
-    rgba(0,0,0,0.04) 45%,
-    rgba(0,0,0,0.00) 100%);
-  opacity:0;
-  transition:opacity 0.18s ease;
-  pointer-events:none;
-  z-index:4;
-}
-/* =========================
-   PAGE TURN ANIMATION
-========================= */
-.pageTurnNext{
-  transform:none;
-  opacity:1;
-}
-
-.pageTurnPrev{
-  transform:none;
-  opacity:1;
-}
-
-.pageTurnReset{
-  transform:none;
-  opacity:1;
-}
-
-    
-
-    /* =========================
-       READING PLACEHOLDER
-    ========================= */
     #readingPlaceholder{
       position:absolute;
       left:50%;
@@ -402,6 +329,119 @@
       box-shadow:0 8px 24px rgba(0,0,0,0.10);
       text-align:center;
       line-height:1.5;
+      pointer-events:none;
+      display:none;
+    }
+
+    /* =========================
+       LIST PAGE COMMON
+    ========================= */
+    .listPage{
+      display:none;
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:78px;
+      background:#f5f5f7;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:12px;
+      z-index:10;
+    }
+
+    .listTopBar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      padding:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border-bottom:1px solid rgba(0,0,0,0.08);
+    }
+
+    .listBackBtn{
+      width:40px;
+      height:40px;
+      border:none;
+      border-radius:50%;
+      background:#ffffff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.10);
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .listTitle{
+      font-size:18px;
+      font-weight:800;
+      color:#111;
+    }
+
+    .listContainer{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .listItem{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:14px 16px;
+      background:#ffffff;
+      border-radius:18px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.06);
+      cursor:pointer;
+    }
+
+    .listItemTitle{
+      font-size:15px;
+      font-weight:800;
+      color:#111;
+    }
+
+    .listItemSub{
+      font-size:13px;
+      color:#666;
+      margin-top:3px;
+    }
+
+    .listItemRight{
+      font-size:15px;
+      font-weight:800;
+      color:#111;
+      margin-left:10px;
+      white-space:nowrap;
+    }
+
+    .emptyBox{
+      background:#ffffff;
+      border-radius:20px;
+      padding:18px;
+      font-size:15px;
+      font-weight:700;
+      color:#666;
+      text-align:center;
+      line-height:1.5;
+      box-shadow:0 6px 14px rgba(0,0,0,0.06);
+    }
+
+    .deleteSmallBtn{
+      border:none;
+      border-radius:12px;
+      background:#ffecec;
+      color:#d70015;
+      font-size:13px;
+      font-weight:800;
+      padding:8px 10px;
     }
 
     /* =========================
@@ -422,21 +462,52 @@
       justify-content:space-around;
       padding:8px 10px 12px 10px;
       z-index:100;
+      transition:bottom 0.28s ease;
+    }
+
+    #bottomBar.hideInReading{
+      bottom:-86px;
     }
 
     .bottomBarItem{
       flex:1;
       text-align:center;
       font-size:12px;
-      font-weight:600;
+      font-weight:700;
       color:#222222;
       line-height:1.2;
+      cursor:pointer;
     }
 
     .bottomBarIcon{
       display:block;
       font-size:20px;
       margin-bottom:5px;
+    }
+
+    /* =========================
+       TOAST MESSAGE
+    ========================= */
+    #toastMessage{
+      position:absolute;
+      left:50%;
+      bottom:95px;
+      transform:translateX(-50%);
+      background:rgba(0,0,0,0.84);
+      color:white;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      z-index:999;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.22s ease;
+      white-space:nowrap;
+    }
+
+    #toastMessage.show{
+      opacity:1;
     }
 
     /* =========================
@@ -475,9 +546,24 @@
       .codedCardText{
         font-size:22px;
       }
+
+      #readingTitleCenter{
+        left:66px;
+        right:112px;
+      }
+
+      #readingSurahTitle{
+        font-size:14px;
+      }
+
+      .topCircleBtn{
+        width:42px;
+        height:42px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div id="app">
@@ -492,7 +578,7 @@
       ========================= -->
       <div id="homeTitleWrap">
         <div id="homeTitle">Asan Tarjuma Quran</div>
-        <div id="homeSubtitle">Choose from the 4 cards below</div>
+        <div id="homeSubtitle">Choose from the cards below</div>
       </div>
 
       <!-- =========================
@@ -510,11 +596,6 @@
           <div class="codedCardText">Surah Index</div>
         </div>
 
-        <div class="quranHomeCard codedCard" onclick="openGoToPageCard()">
-          <div class="codedCardIcon">#</div>
-          <div class="codedCardText">Go To Page</div>
-        </div>
-
         <div class="quranHomeCard codedCard" onclick="openFavoritePage()">
           <div class="codedCardIcon">⭐</div>
           <div class="codedCardText">Favorite</div>
@@ -526,662 +607,541 @@
     <!-- =========================
          READING PAGE
     ========================= -->
- <div id="readingPage"
-     onclick="handleReadingPageTap(event)"
-     ontouchstart="handleQuranTouchStart(event)"
-     ontouchmove="handleQuranTouchMove(event)"
-     ontouchend="handleQuranTouchEnd(event)">
-
-
-
-   
-    
+    <div
+      id="readingPage"
+      onclick="handleReadingPageTap(event)"
+      ontouchstart="handleQuranTouchStart(event)"
+      ontouchmove="handleQuranTouchMove(event)"
+      ontouchend="handleQuranTouchEnd(event)"
+    >
 
       <!-- =========================
            READING TOP BAR
       ========================= -->
-     <div id="readingTopBar" style="
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 14px;
-">
+      <div id="readingTopBar">
 
-  <!-- BACK BUTTON -->
-  <button id="readingBackBtn" onclick="closeReadingPage()" style="
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:#ffffff;
-  box-shadow:0 4px 12px rgba(0,0,0,0.10);
-  font-size:20px;
-  cursor:pointer;
-  ">
-    ←
-  </button>
+        <!-- BACK BUTTON -->
+        <button id="readingBackBtn" class="topCircleBtn" onclick="closeReadingPage(event)">
+          ←
+        </button>
 
-  <!-- REFRESH BUTTON -->
-  <button onclick="refreshQuranApp()" style="
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:#ffffff;
-  box-shadow:0 4px 12px rgba(0,0,0,0.10);
-  font-size:18px;
-  cursor:pointer;
-  ">
-    ↻
-  </button>
+        <!-- CENTER TITLE -->
+        <div id="readingTitleCenter">
+          <div id="readingSurahTitle">Asan Tarjuma Quran</div>
+          <div id="readingPageNumber">Page 0</div>
+        </div>
 
-</div>
-      <!-- =========================
-           READING CONTENT
-      ========================= -->
-      <div id="readingContent">
+        <!-- RIGHT BUTTONS -->
+        <div id="readingRightButtons">
 
-        <!-- =========================
-             PAGE VIEWER
-        ========================= -->
-        <div id="pageViewer">
-  <img id="underPageImage" src="" alt="Next Quran Page" />
+          <!-- BOOKMARK BUTTON -->
+          <button id="readingBookmarkBtn" class="topCircleBtn" onclick="saveCurrentBookmark(event)">
+            🔖
+          </button>
 
-  <div id="pageDragWrap">
-    <div id="pageUnderlay"></div>
-    <img id="quranPageImage" src="" alt="Quran Page" />
-    <div id="pageTurnShadow"></div>
-  </div>
+          <!-- FAVORITE BUTTON -->
+          <button id="readingFavoriteBtn" class="topCircleBtn" onclick="saveCurrentFavorite(event)">
+            ⭐
+          </button>
 
-  <div id="readingPlaceholder">
-    Quran reading page<br />
-    real page turn effect comes later
-  </div>
-</div>
-
+        </div>
       </div>
+
+      <!-- =========================
+           PAGE VIEWER
+      ========================= -->
+      <div id="pageViewer">
+        <img id="quranPageImage" src="" alt="Quran Page" />
+        <div id="readingPlaceholder">Page 0</div>
+      </div>
+
     </div>
 
+    <!-- =========================
+         SURAH INDEX PAGE
+    ========================= -->
+    <div id="surahIndexPage" class="listPage">
 
+      <div class="listTopBar">
+        <button class="listBackBtn" onclick="closeSurahIndexPage()">←</button>
+        <div class="listTitle">Surah Index</div>
+      </div>
 
+      <div id="surahList" class="listContainer"></div>
 
-     <!-- =========================
-     SURAH INDEX PAGE
-========================= -->
-<div id="surahIndexPage" style="
-display:none;
-position:absolute;
-top:0;
-left:0;
-right:0;
-bottom:78px;
-background:#f5f5f7;
-overflow-y:auto;
--webkit-overflow-scrolling:touch;
-padding:12px;
-">
-
-  <!-- TOP BAR -->
-  <div style="
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  padding:10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid rgba(0,0,0,0.08);
-  ">
-
-    <button onclick="closeSurahIndexPage()" style="
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    background:#ffffff;
-    box-shadow:0 4px 12px rgba(0,0,0,0.10);
-    font-size:18px;
-    ">
-      ←
-    </button>
-
-    <div style="
-    font-size:18px;
-    font-weight:700;
-    ">
-      Surah Index
     </div>
 
-  </div>
+    <!-- =========================
+         BOOKMARKS PAGE
+    ========================= -->
+    <div id="bookmarksPage" class="listPage">
 
-  <!-- LIST -->
-  <div id="surahList" style="
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-top:10px;
-  "></div>
+      <div class="listTopBar">
+        <button class="listBackBtn" onclick="closeBookmarksPage()">←</button>
+        <div class="listTitle">Bookmarks</div>
+      </div>
 
-</div>
+      <div id="bookmarksList" class="listContainer"></div>
 
+    </div>
 
-    
+    <!-- =========================
+         FAVORITES PAGE
+    ========================= -->
+    <div id="favoritesPage" class="listPage">
+
+      <div class="listTopBar">
+        <button class="listBackBtn" onclick="closeFavoritePage()">←</button>
+        <div class="listTitle">Favorite</div>
+      </div>
+
+      <div id="favoritesList" class="listContainer"></div>
+
+    </div>
 
     <!-- =========================
          BOTTOM BAR
     ========================= -->
     <div id="bottomBar">
-      <div class="bottomBarItem">
+
+      <div class="bottomBarItem" onclick="openBookmarksPage()">
         <span class="bottomBarIcon">🔖</span>
         Bookmarks
       </div>
 
-      <div class="bottomBarItem">
+      <div class="bottomBarItem" onclick="openSurahIndexPage()">
         <span class="bottomBarIcon">📖</span>
         Surah
       </div>
 
-      <div class="bottomBarItem">
-        <span class="bottomBarIcon">#</span>
-        Page
-      </div>
-
-      <div class="bottomBarItem">
+      <div class="bottomBarItem" onclick="openFavoritePage()">
         <span class="bottomBarIcon">⭐</span>
         Favorite
       </div>
+
     </div>
+
+    <!-- =========================
+         TOAST MESSAGE
+    ========================= -->
+    <div id="toastMessage"></div>
 
   </div>
 
   <script>
+    /* =========================
+       CURRENT QURAN PAGE
+    ========================= */
+    let currentQuranPage = 0;
 
+    let quranTouchStartX = 0;
+    let quranTouchStartY = 0;
+    let quranTouchEndX = 0;
+    let quranIsDragging = false;
+    let quranDidSwipe = false;
+    let currentDragX = 0;
+    let dragTurnThreshold = 70;
 
-    
-    // =========================
-// CURRENT QURAN PAGE
-// =========================
-let currentQuranPage = 0;
-let quranTouchStartX = 0;
-let quranTouchEndX = 0;
-let quranSwipeMinDistance = 40;
-let quranIsTurning = false;
+    let readingControlsVisible = false;
 
-let quranIsDragging = false;
-let currentDragX = 0;
-let dragTurnThreshold = 90;
+    /* =========================
+       LOCAL STORAGE KEYS
+    ========================= */
+    const BOOKMARKS_KEY = "asanTarjumaBookmarks";
+    const FAVORITES_KEY = "asanTarjumaFavorites";
 
-    // =========================
-    // OPEN BOOKMARKS PAGE
-    // =========================
-    function openBookmarksPage(){
-      openReadingPage(0);
-    }
-
-    // =========================
-    // OPEN SURAH INDEX PAGE
-    // =========================
-  function openSurahIndexPage(){
-
-  let homePage = document.getElementById("homePage");
-  let readingPage = document.getElementById("readingPage");
-  let surahIndexPage = document.getElementById("surahIndexPage");
-
-  if(homePage) homePage.style.display = "none";
-  if(readingPage) readingPage.style.display = "none";
-  if(surahIndexPage) surahIndexPage.style.display = "block";
-
-  renderSurahList();
-}
-
-
-
-
-
-// =========================
-// OPEN SURAH FROM INDEX
-// =========================
-function openSurahFromIndex(surahNumber){
-  let pageNumber = surahPageMap[surahNumber];
-
-  if(!pageNumber && pageNumber !== 0){
-    return;
-  }
-
-  let surahIndexPage = document.getElementById("surahIndexPage");
-  let readingPage = document.getElementById("readingPage");
-  let readingTopBar = document.getElementById("readingTopBar");
-  let readingContent = document.getElementById("readingContent");
-
-  if(surahIndexPage) surahIndexPage.style.display = "none";
-  if(readingPage) readingPage.style.display = "block";
-
-  if(readingTopBar) readingTopBar.classList.remove("show");
-  if(readingContent) readingContent.classList.remove("topBarVisible");
-
-  openReadingPage(pageNumber);
-}    
-
-
-// =========================
-// SURAH TO PAGE MAP
-// =========================
-const surahPageMap = {
-  1: 35,
-  2: 39,
-  3: 179,
-  4: 243,
-  5: 319,
-  6: 379,
-  7: 441,
-  8: 517,
-  9: 555,
-  10: 629,
-  11: 665,
-  12: 705,
-  13: 751,
-  14: 777,
-  15: 797,
-  16: 815,
-  17: 853,
-  18: 889,
-  19: 929,
-  20: 951,
-  21: 983,
-  22: 1011,
-  23: 1039,
-  24: 1061,
-  25: 1093,
-  26: 1113,
-  27: 1143,
-  28: 1167,
-  29: 1199,
-  30: 1233,
-  31: 1253,
-  32: 1267,
-  33: 1277,
-  34: 1313,
-  35: 1333,
-  36: 1349,
-  37: 1367,
-  38: 1389,
-  39: 1409,
-  40: 1431,
-  41: 1453,
-  42: 1469,
-  43: 1485,
-  44: 1507,
-  45: 1517,
-  46: 1529,
-  47: 1545,
-  48: 1559,
-  49: 1577,
-  50: 1589,
-  51: 1601,
-  52: 1613,
-  53: 1625,
-  54: 1637,
-  55: 1647,
-  56: 1659,
-  57: 1671,
-  58: 1687,
-  59: 1699,
-  60: 1711,
-  61: 1723,
-  62: 1731,
-  63: 1745,
-  64: 1753,
-  65: 1763,
-  66: 1771,
-  67: 1779,
-  68: 1789,
-  69: 1797,
-  70: 1805,
-  71: 1813,
-  72: 1823,
-  73: 1831,
-  74: 1841,
-  75: 1849,
-  76: 1857,
-  77: 1865,
-  78: 1873,
-  79: 1881,
-  80: 1887,
-  81: 1893,
-  82: 1897,
-  83: 1903,
-  84: 1909,
-  85: 1915,
-  86: 1917,
-  87: 1919,
-  88: 1922,
-  89: 1926,
-  90: 1930,
-  91: 1933,
-  92: 1936,
-  93: 1938,
-  94: 1940,
-  95: 1942,
-  96: 1945,
-  97: 1946,
-  98: 1948,
-  99: 1950,
-  100: 1952,
-  101: 1953,
-  102: 1954,
-  103: 1955,
-  104: 1957,
-  105: 1959,
-  106: 1961,
-  107: 1963,
-  108: 1964,
-  109: 1966,
-  110: 1968,
-  111: 1970,
-  112: 1972,
-  113: 1973,
-  114: 1973
-};
-
-
-
-
-
-
-    
-// =========================
-// CLOSE SURAH INDEX PAGE
-// =========================
-
-    function closeSurahIndexPage(){
-  let homePage = document.getElementById("homePage");
-  let surahIndexPage = document.getElementById("surahIndexPage");
-
-  if(surahIndexPage) surahIndexPage.style.display = "none";
-  if(homePage) homePage.style.display = "block";
-}
-
-
-// =========================
-// RENDER SURAH LIST
-// =========================
-
-function renderSurahList(){
-
-  let container = document.getElementById("surahList");
-  if(!container) return;
-
-  container.innerHTML = "";
-
-  // =========================
-  // SURAH NAMES DATA
-  // =========================
-  const surahNames = [
-    {en:"Al-Fatiha", ar:"الفاتحة"},
-    {en:"Al-Baqarah", ar:"البقرة"},
-    {en:"Aal-E-Imran", ar:"آل عمران"},
-    {en:"An-Nisa", ar:"النساء"},
-    {en:"Al-Ma'idah", ar:"المائدة"},
-    {en:"Al-An'am", ar:"الأنعام"},
-    {en:"Al-A'raf", ar:"الأعراف"},
-    {en:"Al-Anfal", ar:"الأنفال"},
-    {en:"At-Tawbah", ar:"التوبة"},
-    {en:"Yunus", ar:"يونس"},
-    {en:"Hud", ar:"هود"},
-    {en:"Yusuf", ar:"يوسف"},
-    {en:"Ar-Ra'd", ar:"الرعد"},
-    {en:"Ibrahim", ar:"ابراهيم"},
-    {en:"Al-Hijr", ar:"الحجر"},
-    {en:"An-Nahl", ar:"النحل"},
-    {en:"Al-Isra", ar:"الإسراء"},
-    {en:"Al-Kahf", ar:"الكهف"},
-    {en:"Maryam", ar:"مريم"},
-    {en:"Ta-Ha", ar:"طه"},
-    {en:"Al-Anbiya", ar:"الأنبياء"},
-    {en:"Al-Hajj", ar:"الحج"},
-    {en:"Al-Mu'minun", ar:"المؤمنون"},
-    {en:"An-Nur", ar:"النور"},
-    {en:"Al-Furqan", ar:"الفرقان"},
-    {en:"Ash-Shu'ara", ar:"الشعراء"},
-    {en:"An-Naml", ar:"النمل"},
-    {en:"Al-Qasas", ar:"القصص"},
-    {en:"Al-Ankabut", ar:"العنكبوت"},
-    {en:"Ar-Rum", ar:"الروم"},
-    {en:"Luqman", ar:"لقمان"},
-    {en:"As-Sajdah", ar:"السجدة"},
-    {en:"Al-Ahzab", ar:"الأحزاب"},
-    {en:"Saba", ar:"سبإ"},
-    {en:"Fatir", ar:"فاطر"},
-    {en:"Ya-Sin", ar:"يس"},
-    {en:"As-Saffat", ar:"الصافات"},
-    {en:"Sad", ar:"ص"},
-    {en:"Az-Zumar", ar:"الزمر"},
-    {en:"Ghafir", ar:"غافر"},
-    {en:"Fussilat", ar:"فصلت"},
-    {en:"Ash-Shura", ar:"الشورى"},
-    {en:"Az-Zukhruf", ar:"الزخرف"},
-    {en:"Ad-Dukhan", ar:"الدخان"},
-    {en:"Al-Jathiyah", ar:"الجاثية"},
-    {en:"Al-Ahqaf", ar:"الأحقاف"},
-    {en:"Muhammad", ar:"محمد"},
-    {en:"Al-Fath", ar:"الفتح"},
-    {en:"Al-Hujurat", ar:"الحجرات"},
-    {en:"Qaf", ar:"ق"},
-    {en:"Adh-Dhariyat", ar:"الذاريات"},
-    {en:"At-Tur", ar:"الطور"},
-    {en:"An-Najm", ar:"النجم"},
-    {en:"Al-Qamar", ar:"القمر"},
-    {en:"Ar-Rahman", ar:"الرحمن"},
-    {en:"Al-Waqi'ah", ar:"الواقعة"},
-    {en:"Al-Hadid", ar:"الحديد"},
-    {en:"Al-Mujadila", ar:"المجادلة"},
-    {en:"Al-Hashr", ar:"الحشر"},
-    {en:"Al-Mumtahanah", ar:"الممتحنة"},
-    {en:"As-Saff", ar:"الصف"},
-    {en:"Al-Jumu'ah", ar:"الجمعة"},
-    {en:"Al-Munafiqun", ar:"المنافقون"},
-    {en:"At-Taghabun", ar:"التغابن"},
-    {en:"At-Talaq", ar:"الطلاق"},
-    {en:"At-Tahrim", ar:"التحريم"},
-    {en:"Al-Mulk", ar:"الملك"},
-    {en:"Al-Qalam", ar:"القلم"},
-    {en:"Al-Haqqah", ar:"الحاقة"},
-    {en:"Al-Ma'arij", ar:"المعارج"},
-    {en:"Nuh", ar:"نوح"},
-    {en:"Al-Jinn", ar:"الجن"},
-    {en:"Al-Muzzammil", ar:"المزمل"},
-    {en:"Al-Muddathir", ar:"المدثر"},
-    {en:"Al-Qiyamah", ar:"القيامة"},
-    {en:"Al-Insan", ar:"الإنسان"},
-    {en:"Al-Mursalat", ar:"المرسلات"},
-    {en:"An-Naba", ar:"النبأ"},
-    {en:"An-Nazi'at", ar:"النازعات"},
-    {en:"Abasa", ar:"عبس"},
-    {en:"At-Takwir", ar:"التكوير"},
-    {en:"Al-Infitar", ar:"الإنفطار"},
-    {en:"Al-Mutaffifin", ar:"المطففين"},
-    {en:"Al-Inshiqaq", ar:"الإنشقاق"},
-    {en:"Al-Buruj", ar:"البروج"},
-    {en:"At-Tariq", ar:"الطارق"},
-    {en:"Al-A'la", ar:"الأعلى"},
-    {en:"Al-Ghashiyah", ar:"الغاشية"},
-    {en:"Al-Fajr", ar:"الفجر"},
-    {en:"Al-Balad", ar:"البلد"},
-    {en:"Ash-Shams", ar:"الشمس"},
-    {en:"Al-Layl", ar:"الليل"},
-    {en:"Ad-Duha", ar:"الضحى"},
-    {en:"Ash-Sharh", ar:"الشرح"},
-    {en:"At-Tin", ar:"التين"},
-    {en:"Al-Alaq", ar:"العلق"},
-    {en:"Al-Qadr", ar:"القدر"},
-    {en:"Al-Bayyina", ar:"البينة"},
-    {en:"Az-Zalzalah", ar:"الزلزلة"},
-    {en:"Al-Adiyat", ar:"العاديات"},
-    {en:"Al-Qari'ah", ar:"القارعة"},
-    {en:"At-Takathur", ar:"التكاثر"},
-    {en:"Al-Asr", ar:"العصر"},
-    {en:"Al-Humazah", ar:"الهمزة"},
-    {en:"Al-Fil", ar:"الفيل"},
-    {en:"Quraysh", ar:"قريش"},
-    {en:"Al-Ma'un", ar:"الماعون"},
-    {en:"Al-Kawthar", ar:"الكوثر"},
-    {en:"Al-Kafirun", ar:"الكافرون"},
-    {en:"An-Nasr", ar:"النصر"},
-    {en:"Al-Masad", ar:"المسد"},
-    {en:"Al-Ikhlas", ar:"الإخلاص"},
-    {en:"Al-Falaq", ar:"الفلق"},
-    {en:"An-Nas", ar:"الناس"}
-  ];
-
-  for(let i=1; i<=114; i++){
-
-    let page = surahPageMap[i];
-
-    let item = document.createElement("div");
-
-    item.style = `
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 16px;
-      background:#ffffff;
-      border-radius:18px;
-      box-shadow:0 6px 14px rgba(0,0,0,0.06);
-      cursor:pointer;
-    `;
-
-    item.innerHTML = `
-      <div style="flex:1;">
-        <div style="font-size:15px;font-weight:700;color:#111;">
-          ${i}. ${surahNames[i-1].en}
-        </div>
-        <div style="font-size:14px;color:#666;margin-top:2px;">
-          ${surahNames[i-1].ar}
-        </div>
-      </div>
-
-      <div style="
-        font-size:15px;
-        font-weight:700;
-        color:#111;
-        margin-left:10px;
-      ">
-        ${page}
-      </div>
-    `;
-
-    item.onclick = function(){
-      openSurahFromIndex(i);
+    /* =========================
+       SURAH TO PAGE MAP
+    ========================= */
+    const surahPageMap = {
+      1: 35,
+      2: 39,
+      3: 179,
+      4: 243,
+      5: 319,
+      6: 379,
+      7: 441,
+      8: 517,
+      9: 555,
+      10: 629,
+      11: 665,
+      12: 705,
+      13: 751,
+      14: 777,
+      15: 797,
+      16: 815,
+      17: 853,
+      18: 889,
+      19: 929,
+      20: 951,
+      21: 983,
+      22: 1011,
+      23: 1039,
+      24: 1061,
+      25: 1093,
+      26: 1113,
+      27: 1143,
+      28: 1167,
+      29: 1199,
+      30: 1233,
+      31: 1253,
+      32: 1267,
+      33: 1277,
+      34: 1313,
+      35: 1333,
+      36: 1349,
+      37: 1367,
+      38: 1389,
+      39: 1409,
+      40: 1431,
+      41: 1453,
+      42: 1469,
+      43: 1485,
+      44: 1507,
+      45: 1517,
+      46: 1529,
+      47: 1545,
+      48: 1559,
+      49: 1577,
+      50: 1589,
+      51: 1601,
+      52: 1613,
+      53: 1625,
+      54: 1637,
+      55: 1647,
+      56: 1659,
+      57: 1671,
+      58: 1687,
+      59: 1699,
+      60: 1711,
+      61: 1723,
+      62: 1731,
+      63: 1745,
+      64: 1753,
+      65: 1763,
+      66: 1771,
+      67: 1779,
+      68: 1789,
+      69: 1797,
+      70: 1805,
+      71: 1813,
+      72: 1823,
+      73: 1831,
+      74: 1841,
+      75: 1849,
+      76: 1857,
+      77: 1865,
+      78: 1873,
+      79: 1881,
+      80: 1887,
+      81: 1893,
+      82: 1897,
+      83: 1903,
+      84: 1909,
+      85: 1915,
+      86: 1917,
+      87: 1919,
+      88: 1922,
+      89: 1926,
+      90: 1930,
+      91: 1933,
+      92: 1936,
+      93: 1938,
+      94: 1940,
+      95: 1942,
+      96: 1945,
+      97: 1946,
+      98: 1948,
+      99: 1950,
+      100: 1952,
+      101: 1953,
+      102: 1954,
+      103: 1955,
+      104: 1957,
+      105: 1959,
+      106: 1961,
+      107: 1963,
+      108: 1964,
+      109: 1966,
+      110: 1968,
+      111: 1970,
+      112: 1972,
+      113: 1973,
+      114: 1973
     };
 
-    container.appendChild(item);
-  }
-}
+    /* =========================
+       SURAH NAMES DATA
+    ========================= */
+    const surahNames = [
+      {en:"Al-Fatiha", ar:"الفاتحة"},
+      {en:"Al-Baqarah", ar:"البقرة"},
+      {en:"Aal-E-Imran", ar:"آل عمران"},
+      {en:"An-Nisa", ar:"النساء"},
+      {en:"Al-Ma'idah", ar:"المائدة"},
+      {en:"Al-An'am", ar:"الأنعام"},
+      {en:"Al-A'raf", ar:"الأعراف"},
+      {en:"Al-Anfal", ar:"الأنفال"},
+      {en:"At-Tawbah", ar:"التوبة"},
+      {en:"Yunus", ar:"يونس"},
+      {en:"Hud", ar:"هود"},
+      {en:"Yusuf", ar:"يوسف"},
+      {en:"Ar-Ra'd", ar:"الرعد"},
+      {en:"Ibrahim", ar:"ابراهيم"},
+      {en:"Al-Hijr", ar:"الحجر"},
+      {en:"An-Nahl", ar:"النحل"},
+      {en:"Al-Isra", ar:"الإسراء"},
+      {en:"Al-Kahf", ar:"الكهف"},
+      {en:"Maryam", ar:"مريم"},
+      {en:"Ta-Ha", ar:"طه"},
+      {en:"Al-Anbiya", ar:"الأنبياء"},
+      {en:"Al-Hajj", ar:"الحج"},
+      {en:"Al-Mu'minun", ar:"المؤمنون"},
+      {en:"An-Nur", ar:"النور"},
+      {en:"Al-Furqan", ar:"الفرقان"},
+      {en:"Ash-Shu'ara", ar:"الشعراء"},
+      {en:"An-Naml", ar:"النمل"},
+      {en:"Al-Qasas", ar:"القصص"},
+      {en:"Al-Ankabut", ar:"العنكبوت"},
+      {en:"Ar-Rum", ar:"الروم"},
+      {en:"Luqman", ar:"لقمان"},
+      {en:"As-Sajdah", ar:"السجدة"},
+      {en:"Al-Ahzab", ar:"الأحزاب"},
+      {en:"Saba", ar:"سبإ"},
+      {en:"Fatir", ar:"فاطر"},
+      {en:"Ya-Sin", ar:"يس"},
+      {en:"As-Saffat", ar:"الصافات"},
+      {en:"Sad", ar:"ص"},
+      {en:"Az-Zumar", ar:"الزمر"},
+      {en:"Ghafir", ar:"غافر"},
+      {en:"Fussilat", ar:"فصلت"},
+      {en:"Ash-Shura", ar:"الشورى"},
+      {en:"Az-Zukhruf", ar:"الزخرف"},
+      {en:"Ad-Dukhan", ar:"الدخان"},
+      {en:"Al-Jathiyah", ar:"الجاثية"},
+      {en:"Al-Ahqaf", ar:"الأحقاف"},
+      {en:"Muhammad", ar:"محمد"},
+      {en:"Al-Fath", ar:"الفتح"},
+      {en:"Al-Hujurat", ar:"الحجرات"},
+      {en:"Qaf", ar:"ق"},
+      {en:"Adh-Dhariyat", ar:"الذاريات"},
+      {en:"At-Tur", ar:"الطور"},
+      {en:"An-Najm", ar:"النجم"},
+      {en:"Al-Qamar", ar:"القمر"},
+      {en:"Ar-Rahman", ar:"الرحمن"},
+      {en:"Al-Waqi'ah", ar:"الواقعة"},
+      {en:"Al-Hadid", ar:"الحديد"},
+      {en:"Al-Mujadila", ar:"المجادلة"},
+      {en:"Al-Hashr", ar:"الحشر"},
+      {en:"Al-Mumtahanah", ar:"الممتحنة"},
+      {en:"As-Saff", ar:"الصف"},
+      {en:"Al-Jumu'ah", ar:"الجمعة"},
+      {en:"Al-Munafiqun", ar:"المنافقون"},
+      {en:"At-Taghabun", ar:"التغابن"},
+      {en:"At-Talaq", ar:"الطلاق"},
+      {en:"At-Tahrim", ar:"التحريم"},
+      {en:"Al-Mulk", ar:"الملك"},
+      {en:"Al-Qalam", ar:"القلم"},
+      {en:"Al-Haqqah", ar:"الحاقة"},
+      {en:"Al-Ma'arij", ar:"المعارج"},
+      {en:"Nuh", ar:"نوح"},
+      {en:"Al-Jinn", ar:"الجن"},
+      {en:"Al-Muzzammil", ar:"المزمل"},
+      {en:"Al-Muddathir", ar:"المدثر"},
+      {en:"Al-Qiyamah", ar:"القيامة"},
+      {en:"Al-Insan", ar:"الإنسان"},
+      {en:"Al-Mursalat", ar:"المرسلات"},
+      {en:"An-Naba", ar:"النبأ"},
+      {en:"An-Nazi'at", ar:"النازعات"},
+      {en:"Abasa", ar:"عبس"},
+      {en:"At-Takwir", ar:"التكوير"},
+      {en:"Al-Infitar", ar:"الإنفطار"},
+      {en:"Al-Mutaffifin", ar:"المطففين"},
+      {en:"Al-Inshiqaq", ar:"الإنشقاق"},
+      {en:"Al-Buruj", ar:"البروج"},
+      {en:"At-Tariq", ar:"الطارق"},
+      {en:"Al-A'la", ar:"الأعلى"},
+      {en:"Al-Ghashiyah", ar:"الغاشية"},
+      {en:"Al-Fajr", ar:"الفجر"},
+      {en:"Al-Balad", ar:"البلد"},
+      {en:"Ash-Shams", ar:"الشمس"},
+      {en:"Al-Layl", ar:"الليل"},
+      {en:"Ad-Duha", ar:"الضحى"},
+      {en:"Ash-Sharh", ar:"الشرح"},
+      {en:"At-Tin", ar:"التين"},
+      {en:"Al-Alaq", ar:"العلق"},
+      {en:"Al-Qadr", ar:"القدر"},
+      {en:"Al-Bayyina", ar:"البينة"},
+      {en:"Az-Zalzalah", ar:"الزلزلة"},
+      {en:"Al-Adiyat", ar:"العاديات"},
+      {en:"Al-Qari'ah", ar:"القارعة"},
+      {en:"At-Takathur", ar:"التكاثر"},
+      {en:"Al-Asr", ar:"العصر"},
+      {en:"Al-Humazah", ar:"الهمزة"},
+      {en:"Al-Fil", ar:"الفيل"},
+      {en:"Quraysh", ar:"قريش"},
+      {en:"Al-Ma'un", ar:"الماعون"},
+      {en:"Al-Kawthar", ar:"الكوثر"},
+      {en:"Al-Kafirun", ar:"الكافرون"},
+      {en:"An-Nasr", ar:"النصر"},
+      {en:"Al-Masad", ar:"المسد"},
+      {en:"Al-Ikhlas", ar:"الإخلاص"},
+      {en:"Al-Falaq", ar:"الفلق"},
+      {en:"An-Nas", ar:"الناس"}
+    ];
 
-
-
-
-
-
-    
-    // =========================
-    // OPEN GO TO PAGE CARD
-    // =========================
-    function openGoToPageCard(){
-      openReadingPage(0);
-    }
-
-    // =========================
-    // OPEN FAVORITE PAGE
-    // =========================
-    function openFavoritePage(){
-      openReadingPage(0);
-    }
-
-    // =========================
-    // OPEN READING PAGE
-    // =========================
-    function openReadingPage(pageNumber){
-      currentQuranPage = pageNumber;
-
+    /* =========================
+       HIDE ALL PAGES
+    ========================= */
+    function hideAllPages(){
       let homePage = document.getElementById("homePage");
       let readingPage = document.getElementById("readingPage");
-      let readingTopBar = document.getElementById("readingTopBar");
-      let readingContent = document.getElementById("readingContent");
+      let surahIndexPage = document.getElementById("surahIndexPage");
+      let bookmarksPage = document.getElementById("bookmarksPage");
+      let favoritesPage = document.getElementById("favoritesPage");
 
       if(homePage) homePage.style.display = "none";
-      if(readingPage) readingPage.style.display = "block";
-
-      if(readingTopBar) readingTopBar.classList.remove("show");
-      if(readingContent) readingContent.classList.remove("topBarVisible");
-
-      loadQuranPageImage(pageNumber);
+      if(readingPage) readingPage.style.display = "none";
+      if(surahIndexPage) surahIndexPage.style.display = "none";
+      if(bookmarksPage) bookmarksPage.style.display = "none";
+      if(favoritesPage) favoritesPage.style.display = "none";
     }
 
-    // =========================
-    // CLOSE READING PAGE
-    // =========================
-    function closeReadingPage(){
-      let homePage = document.getElementById("homePage");
-      let readingPage = document.getElementById("readingPage");
-      let readingTopBar = document.getElementById("readingTopBar");
-      let readingContent = document.getElementById("readingContent");
+    /* =========================
+       SHOW BOTTOM BAR
+    ========================= */
+    function showBottomBar(){
+      let bottomBar = document.getElementById("bottomBar");
+      if(bottomBar) bottomBar.classList.remove("hideInReading");
+    }
 
-      if(readingPage) readingPage.style.display = "none";
+    /* =========================
+       HIDE BOTTOM BAR
+    ========================= */
+    function hideBottomBar(){
+      let bottomBar = document.getElementById("bottomBar");
+      if(bottomBar) bottomBar.classList.add("hideInReading");
+    }
+
+    /* =========================
+       OPEN HOME PAGE
+    ========================= */
+    function openHomePage(){
+      hideAllPages();
+
+      let homePage = document.getElementById("homePage");
       if(homePage) homePage.style.display = "block";
 
-      if(readingTopBar) readingTopBar.classList.remove("show");
-      if(readingContent) readingContent.classList.remove("topBarVisible");
+      showBottomBar();
+      hideReadingControls();
     }
 
-    // =========================
-    // HANDLE READING PAGE TAP
-    // =========================
-    function handleReadingPageTap(event){
-      let target = event.target;
-      let readingTopBar = document.getElementById("readingTopBar");
-      let readingContent = document.getElementById("readingContent");
+    /* =========================
+       OPEN READING PAGE
+    ========================= */
+    function openReadingPage(pageNumber){
+      hideAllPages();
 
-      if(target && target.id === "readingBackBtn"){
+      currentQuranPage = Number(pageNumber) || 0;
+
+      let readingPage = document.getElementById("readingPage");
+      if(readingPage) readingPage.style.display = "block";
+
+      hideReadingControls();
+      loadQuranPageImage(currentQuranPage);
+      updateReadingTopBarInfo();
+      updateSaveButtonsState();
+
+      hideBottomBar();
+    }
+
+    /* =========================
+       CLOSE READING PAGE
+    ========================= */
+    function closeReadingPage(event){
+      if(event){
+        event.stopPropagation();
+      }
+
+      openHomePage();
+    }
+
+    /* =========================
+       SHOW READING CONTROLS
+    ========================= */
+    function showReadingControls(){
+      let readingTopBar = document.getElementById("readingTopBar");
+
+      if(readingTopBar) readingTopBar.classList.add("show");
+
+      showBottomBar();
+      readingControlsVisible = true;
+    }
+
+    /* =========================
+       HIDE READING CONTROLS
+    ========================= */
+    function hideReadingControls(){
+      let readingTopBar = document.getElementById("readingTopBar");
+
+      if(readingTopBar) readingTopBar.classList.remove("show");
+
+      hideBottomBar();
+      readingControlsVisible = false;
+    }
+
+    /* =========================
+       HANDLE READING PAGE TAP
+    ========================= */
+    function handleReadingPageTap(event){
+      if(quranDidSwipe){
+        quranDidSwipe = false;
         return;
       }
 
-      if(readingTopBar.classList.contains("show")){
-        readingTopBar.classList.remove("show");
-        readingContent.classList.remove("topBarVisible");
+      let target = event.target;
+
+      if(target && target.closest && target.closest("button")){
+        return;
+      }
+
+      if(readingControlsVisible){
+        hideReadingControls();
       }else{
-        readingTopBar.classList.add("show");
-        readingContent.classList.add("topBarVisible");
+        showReadingControls();
       }
     }
 
-   // =========================
-// LOAD QURAN PAGE IMAGE
-// =========================
-function loadQuranPageImage(pageNumber){
-  let pageImage = document.getElementById("quranPageImage");
-  let placeholder = document.getElementById("readingPlaceholder");
+    /* =========================
+       LOAD QURAN PAGE IMAGE
+    ========================= */
+    function loadQuranPageImage(pageNumber){
+      let pageImage = document.getElementById("quranPageImage");
+      let placeholder = document.getElementById("readingPlaceholder");
 
-  currentQuranPage = pageNumber;
+      currentQuranPage = pageNumber;
 
-  let imagePath = getQuranPageImagePath(pageNumber);
+      let imagePath = getQuranPageImagePath(pageNumber);
 
-  if(pageImage){
-    pageImage.src = imagePath;
-  }
+      if(pageImage){
+        pageImage.style.transition = "none";
+        pageImage.style.transform = "translateX(0px)";
+        pageImage.src = imagePath;
+      }
 
-  if(placeholder){
-    placeholder.innerHTML = "Page " + pageNumber;
-  }
-}
-    // =========================
-    // GET QURAN PAGE IMAGE PATH
-    // Quran = 0 to 1000
-    // Quran2 = 1001 to 1975
-    // =========================
+      if(placeholder){
+        placeholder.innerHTML = "Page " + pageNumber;
+      }
+
+      updateReadingTopBarInfo();
+      updateSaveButtonsState();
+    }
+
+    /* =========================
+       GET QURAN PAGE IMAGE PATH
+       Quran = 0 to 1000
+       Quran2 = 1001 to 1975
+    ========================= */
     function getQuranPageImagePath(pageNumber){
       if(pageNumber >= 0 && pageNumber <= 1000){
         return "Quran/" + pageNumber + ".jpg";
@@ -1194,243 +1154,579 @@ function loadQuranPageImage(pageNumber){
       return "Quran/0.jpg";
     }
 
+    /* =========================
+       HANDLE QURAN TOUCH START
+    ========================= */
+    function handleQuranTouchStart(event){
+      if(!event.touches || !event.touches.length) return;
 
+      quranIsDragging = true;
+      quranDidSwipe = false;
 
-// =========================
-// SET UNDER PAGE PREVIEW
-// =========================
-function setUnderPagePreview(direction){
-  let underPageImage = document.getElementById("underPageImage");
-  if(!underPageImage) return;
+      quranTouchStartX = event.touches[0].clientX;
+      quranTouchStartY = event.touches[0].clientY;
+      currentDragX = 0;
 
-  let previewPage = currentQuranPage;
+      let pageImage = document.getElementById("quranPageImage");
 
-  if(direction === "next"){
-    previewPage = currentQuranPage + 1;
-    if(previewPage > 1975) previewPage = 1975;
-  }else if(direction === "prev"){
-    previewPage = currentQuranPage - 1;
-    if(previewPage < 0) previewPage = 0;
-  }
-
-  underPageImage.src = getQuranPageImagePath(previewPage);
-}
-
-
-
-
-    
-
-// =========================
-// REFRESH QURAN APP
-// =========================
-function refreshQuranApp(){
-  window.location.reload();
-}
-
-// =========================
-// HANDLE QURAN TOUCH START
-// =========================
-function handleQuranTouchStart(event){
-  if(quranIsTurning) return;
-  if(!event.touches || !event.touches.length) return;
-
-  quranIsDragging = true;
-  quranTouchStartX = event.touches[0].clientX;
-  currentDragX = 0;
-
-  let pageDragWrap = document.getElementById("pageDragWrap");
-  let pageUnderlay = document.getElementById("pageUnderlay");
-  let pageTurnShadow = document.getElementById("pageTurnShadow");
-
-  if(pageDragWrap){
-    pageDragWrap.style.transition = "none";
-    pageDragWrap.style.transform = "perspective(1400px) rotateY(0deg)";
-  }
-
-  if(pageUnderlay){
-    pageUnderlay.style.opacity = "0";
-  }
-
-  if(pageTurnShadow){
-    pageTurnShadow.style.opacity = "0";
-  }
-
-  setUnderPagePreview("next");
-}
-
-// =========================
-// HANDLE QURAN TOUCH MOVE
-// =========================
-function handleQuranTouchMove(event){
-  if(!quranIsDragging) return;
-  if(quranIsTurning) return;
-  if(!event.touches || !event.touches.length) return;
-
-  let currentX = event.touches[0].clientX;
-  currentDragX = currentX - quranTouchStartX;
-
-  let pageDragWrap = document.getElementById("pageDragWrap");
-  let pageTurnShadow = document.getElementById("pageTurnShadow");
-  let pageUnderlay = document.getElementById("pageUnderlay");
-
-  let limitedDragX = currentDragX;
-  if(limitedDragX > 180) limitedDragX = 180;
-  if(limitedDragX < -180) limitedDragX = -180;
-
-  let rotateAmount = limitedDragX / 8;
-
-  if(pageDragWrap){
-    if(limitedDragX < 0){
-      pageDragWrap.style.transformOrigin = "right center";
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(" + rotateAmount + "deg)";
-      setUnderPagePreview("prev");
-    }else if(limitedDragX > 0){
-      pageDragWrap.style.transformOrigin = "left center";
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(" + rotateAmount + "deg)";
-      setUnderPagePreview("next");
-    }else{
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(0deg)";
-    }
-  }
-
-  if(pageUnderlay){
-    pageUnderlay.style.opacity = Math.min(Math.abs(limitedDragX) / 110, 1).toString();
-  }
-
-  if(pageTurnShadow){
-    pageTurnShadow.style.opacity = Math.min(Math.abs(limitedDragX) / 110, 0.95).toString();
-
-    if(limitedDragX < 0){
-      pageTurnShadow.style.left = "0";
-      pageTurnShadow.style.right = "auto";
-      pageTurnShadow.style.transform = "scaleX(1)";
-    }else if(limitedDragX > 0){
-      pageTurnShadow.style.left = "auto";
-      pageTurnShadow.style.right = "0";
-      pageTurnShadow.style.transform = "scaleX(-1)";
-    }
-  }
-}
-
-
-
-    
-
-// =========================
-// HANDLE QURAN TOUCH END
-// =========================
-function handleQuranTouchEnd(event){
-  if(!quranIsDragging) return;
-  if(!event.changedTouches || !event.changedTouches.length) return;
-
-  quranIsDragging = false;
-  quranTouchEndX = event.changedTouches[0].clientX;
-  let swipeDistance = quranTouchEndX - quranTouchStartX;
-
-  let pageDragWrap = document.getElementById("pageDragWrap");
-  let pageUnderlay = document.getElementById("pageUnderlay");
-  let pageTurnShadow = document.getElementById("pageTurnShadow");
-
-  if(pageDragWrap){
-    pageDragWrap.style.transition = "transform 0.28s ease";
-  }
-
-  if(Math.abs(swipeDistance) < dragTurnThreshold){
-    if(pageDragWrap){
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(0deg)";
-    }
-
-    if(pageUnderlay){
-      pageUnderlay.style.opacity = "0";
-    }
-
-    if(pageTurnShadow){
-      pageTurnShadow.style.opacity = "0";
-    }
-
-    return;
-  }
-
-  if(pageDragWrap){
-    if(swipeDistance < 0){
-      pageDragWrap.style.transformOrigin = "right center";
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(-88deg)";
-    }else{
-      pageDragWrap.style.transformOrigin = "left center";
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(88deg)";
-    }
-  }
-
-  setTimeout(function(){
-
-    if(pageUnderlay){
-      pageUnderlay.style.opacity = "0";
-    }
-
-    if(pageTurnShadow){
-      pageTurnShadow.style.opacity = "0";
-    }
-
-    if(pageDragWrap){
-      pageDragWrap.style.transition = "none";
-      pageDragWrap.style.transform = "perspective(1400px) rotateY(0deg)";
-    }
-
-    if(swipeDistance < 0){
-      goToPreviousQuranPage();
-    }else{
-      goToNextQuranPage();
-    }
-
-    setTimeout(function(){
-      if(pageDragWrap){
-        pageDragWrap.style.transition = "transform 0.22s ease";
+      if(pageImage){
+        pageImage.style.transition = "none";
       }
-    }, 30);
+    }
 
-  }, 220);
-}
+    /* =========================
+       HANDLE QURAN TOUCH MOVE
+    ========================= */
+    function handleQuranTouchMove(event){
+      if(!quranIsDragging) return;
+      if(!event.touches || !event.touches.length) return;
 
-// =========================
-// GO TO NEXT QURAN PAGE
-// =========================
-function goToNextQuranPage(){
-  if(quranIsTurning) return;
-  if(currentQuranPage >= 1975) return;
+      let currentX = event.touches[0].clientX;
+      let currentY = event.touches[0].clientY;
 
-  quranIsTurning = true;
+      currentDragX = currentX - quranTouchStartX;
 
-  currentQuranPage++;
-  loadQuranPageImage(currentQuranPage);
+      let verticalMove = Math.abs(currentY - quranTouchStartY);
+      let horizontalMove = Math.abs(currentDragX);
 
-  setTimeout(function(){
-    quranIsTurning = false;
-  }, 120);
-}
+      if(horizontalMove > verticalMove && horizontalMove > 8){
+        event.preventDefault();
+      }
 
-// =========================
-// GO TO PREVIOUS QURAN PAGE
-// =========================
-function goToPreviousQuranPage(){
-  if(quranIsTurning) return;
-  if(currentQuranPage <= 0) return;
+      let limitedDragX = currentDragX;
 
-  quranIsTurning = true;
+      if(limitedDragX > 95) limitedDragX = 95;
+      if(limitedDragX < -95) limitedDragX = -95;
 
-  currentQuranPage--;
-  loadQuranPageImage(currentQuranPage);
+      let pageImage = document.getElementById("quranPageImage");
 
-  setTimeout(function(){
-    quranIsTurning = false;
-  }, 120);
-}
+      if(pageImage){
+        pageImage.style.transform = "translateX(" + limitedDragX + "px)";
+      }
+    }
 
+    /* =========================
+       HANDLE QURAN TOUCH END
+    ========================= */
+    function handleQuranTouchEnd(event){
+      if(!quranIsDragging) return;
+      if(!event.changedTouches || !event.changedTouches.length) return;
 
-    
+      quranIsDragging = false;
 
-    
-    
+      quranTouchEndX = event.changedTouches[0].clientX;
+
+      let swipeDistance = quranTouchEndX - quranTouchStartX;
+      let pageImage = document.getElementById("quranPageImage");
+
+      if(pageImage){
+        pageImage.style.transition = "transform 0.22s ease";
+      }
+
+      if(Math.abs(swipeDistance) < dragTurnThreshold){
+        if(pageImage){
+          pageImage.style.transform = "translateX(0px)";
+        }
+        return;
+      }
+
+      quranDidSwipe = true;
+
+      if(swipeDistance < 0){
+        slideToPreviousQuranPage();
+      }else{
+        slideToNextQuranPage();
+      }
+    }
+
+    /* =========================
+       SLIDE TO NEXT QURAN PAGE
+    ========================= */
+    function slideToNextQuranPage(){
+      if(currentQuranPage >= 1975){
+        resetPageSlide();
+        showToast("Last page");
+        return;
+      }
+
+      let pageImage = document.getElementById("quranPageImage");
+
+      if(pageImage){
+        pageImage.style.transform = "translateX(100%)";
+      }
+
+      setTimeout(function(){
+        currentQuranPage++;
+        loadQuranPageImage(currentQuranPage);
+
+        if(pageImage){
+          pageImage.style.transition = "none";
+          pageImage.style.transform = "translateX(-100%)";
+
+          setTimeout(function(){
+            pageImage.style.transition = "transform 0.22s ease";
+            pageImage.style.transform = "translateX(0px)";
+          }, 20);
+        }
+      }, 170);
+    }
+
+    /* =========================
+       SLIDE TO PREVIOUS QURAN PAGE
+    ========================= */
+    function slideToPreviousQuranPage(){
+      if(currentQuranPage <= 0){
+        resetPageSlide();
+        showToast("First page");
+        return;
+      }
+
+      let pageImage = document.getElementById("quranPageImage");
+
+      if(pageImage){
+        pageImage.style.transform = "translateX(-100%)";
+      }
+
+      setTimeout(function(){
+        currentQuranPage--;
+        loadQuranPageImage(currentQuranPage);
+
+        if(pageImage){
+          pageImage.style.transition = "none";
+          pageImage.style.transform = "translateX(100%)";
+
+          setTimeout(function(){
+            pageImage.style.transition = "transform 0.22s ease";
+            pageImage.style.transform = "translateX(0px)";
+          }, 20);
+        }
+      }, 170);
+    }
+
+    /* =========================
+       RESET PAGE SLIDE
+    ========================= */
+    function resetPageSlide(){
+      let pageImage = document.getElementById("quranPageImage");
+
+      if(pageImage){
+        pageImage.style.transition = "transform 0.22s ease";
+        pageImage.style.transform = "translateX(0px)";
+      }
+    }
+
+    /* =========================
+       OPEN SURAH INDEX PAGE
+    ========================= */
+    function openSurahIndexPage(){
+      hideAllPages();
+
+      let surahIndexPage = document.getElementById("surahIndexPage");
+      if(surahIndexPage) surahIndexPage.style.display = "block";
+
+      showBottomBar();
+      renderSurahList();
+    }
+
+    /* =========================
+       CLOSE SURAH INDEX PAGE
+    ========================= */
+    function closeSurahIndexPage(){
+      openHomePage();
+    }
+
+    /* =========================
+       OPEN SURAH FROM INDEX
+    ========================= */
+    function openSurahFromIndex(surahNumber){
+      let pageNumber = surahPageMap[surahNumber];
+
+      if(!pageNumber && pageNumber !== 0){
+        return;
+      }
+
+      openReadingPage(pageNumber);
+    }
+
+    /* =========================
+       RENDER SURAH LIST
+    ========================= */
+    function renderSurahList(){
+      let container = document.getElementById("surahList");
+      if(!container) return;
+
+      container.innerHTML = "";
+
+      for(let i = 1; i <= 114; i++){
+        let page = surahPageMap[i];
+        let surah = surahNames[i - 1];
+
+        let item = document.createElement("div");
+        item.className = "listItem";
+
+        item.innerHTML = `
+          <div style="flex:1;min-width:0;">
+            <div class="listItemTitle">${i}. ${surah.en}</div>
+            <div class="listItemSub">${surah.ar}</div>
+          </div>
+
+          <div class="listItemRight">Page ${page}</div>
+        `;
+
+        item.onclick = function(){
+          openSurahFromIndex(i);
+        };
+
+        container.appendChild(item);
+      }
+    }
+
+    /* =========================
+       GET CURRENT SURAH INFO
+    ========================= */
+    function getCurrentSurahInfo(pageNumber){
+      let currentSurahNumber = 1;
+
+      for(let i = 1; i <= 114; i++){
+        if(pageNumber >= surahPageMap[i]){
+          currentSurahNumber = i;
+        }
+      }
+
+      let surah = surahNames[currentSurahNumber - 1];
+
+      return {
+        number: currentSurahNumber,
+        en: surah.en,
+        ar: surah.ar,
+        page: pageNumber
+      };
+    }
+
+    /* =========================
+       UPDATE READING TOP BAR INFO
+    ========================= */
+    function updateReadingTopBarInfo(){
+      let title = document.getElementById("readingSurahTitle");
+      let pageNumber = document.getElementById("readingPageNumber");
+
+      let info = getCurrentSurahInfo(currentQuranPage);
+
+      if(title){
+        title.innerHTML = info.en;
+      }
+
+      if(pageNumber){
+        pageNumber.innerHTML = "Page " + currentQuranPage;
+      }
+    }
+
+    /* =========================
+       GET SAVED LIST
+    ========================= */
+    function getSavedList(key){
+      let saved = localStorage.getItem(key);
+
+      if(!saved){
+        return [];
+      }
+
+      try{
+        return JSON.parse(saved) || [];
+      }catch(e){
+        return [];
+      }
+    }
+
+    /* =========================
+       SET SAVED LIST
+    ========================= */
+    function setSavedList(key, list){
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    /* =========================
+       SAVE CURRENT BOOKMARK
+    ========================= */
+    function saveCurrentBookmark(event){
+      if(event){
+        event.stopPropagation();
+      }
+
+      let list = getSavedList(BOOKMARKS_KEY);
+      let alreadySaved = list.some(function(item){
+        return Number(item.page) === Number(currentQuranPage);
+      });
+
+      if(alreadySaved){
+        showToast("Bookmark already saved");
+        updateSaveButtonsState();
+        return;
+      }
+
+      let info = getCurrentSurahInfo(currentQuranPage);
+
+      list.unshift({
+        page: currentQuranPage,
+        surahNumber: info.number,
+        surahName: info.en,
+        surahArabic: info.ar,
+        savedAt: new Date().toLocaleString()
+      });
+
+      setSavedList(BOOKMARKS_KEY, list);
+      updateSaveButtonsState();
+      showToast("Bookmark saved");
+    }
+
+    /* =========================
+       SAVE CURRENT FAVORITE
+    ========================= */
+    function saveCurrentFavorite(event){
+      if(event){
+        event.stopPropagation();
+      }
+
+      let list = getSavedList(FAVORITES_KEY);
+      let alreadySaved = list.some(function(item){
+        return Number(item.page) === Number(currentQuranPage);
+      });
+
+      if(alreadySaved){
+        showToast("Favorite already saved");
+        updateSaveButtonsState();
+        return;
+      }
+
+      let info = getCurrentSurahInfo(currentQuranPage);
+
+      list.unshift({
+        page: currentQuranPage,
+        surahNumber: info.number,
+        surahName: info.en,
+        surahArabic: info.ar,
+        savedAt: new Date().toLocaleString()
+      });
+
+      setSavedList(FAVORITES_KEY, list);
+      updateSaveButtonsState();
+      showToast("Favorite saved");
+    }
+
+    /* =========================
+       UPDATE SAVE BUTTONS STATE
+    ========================= */
+    function updateSaveButtonsState(){
+      let bookmarkBtn = document.getElementById("readingBookmarkBtn");
+      let favoriteBtn = document.getElementById("readingFavoriteBtn");
+
+      let bookmarks = getSavedList(BOOKMARKS_KEY);
+      let favorites = getSavedList(FAVORITES_KEY);
+
+      let bookmarkSaved = bookmarks.some(function(item){
+        return Number(item.page) === Number(currentQuranPage);
+      });
+
+      let favoriteSaved = favorites.some(function(item){
+        return Number(item.page) === Number(currentQuranPage);
+      });
+
+      if(bookmarkBtn){
+        if(bookmarkSaved){
+          bookmarkBtn.classList.add("savedBtnActive");
+        }else{
+          bookmarkBtn.classList.remove("savedBtnActive");
+        }
+      }
+
+      if(favoriteBtn){
+        if(favoriteSaved){
+          favoriteBtn.classList.add("savedBtnActive");
+        }else{
+          favoriteBtn.classList.remove("savedBtnActive");
+        }
+      }
+    }
+
+    /* =========================
+       OPEN BOOKMARKS PAGE
+    ========================= */
+    function openBookmarksPage(){
+      hideAllPages();
+
+      let bookmarksPage = document.getElementById("bookmarksPage");
+      if(bookmarksPage) bookmarksPage.style.display = "block";
+
+      showBottomBar();
+      renderBookmarksList();
+    }
+
+    /* =========================
+       CLOSE BOOKMARKS PAGE
+    ========================= */
+    function closeBookmarksPage(){
+      openHomePage();
+    }
+
+    /* =========================
+       RENDER BOOKMARKS LIST
+    ========================= */
+    function renderBookmarksList(){
+      let container = document.getElementById("bookmarksList");
+      if(!container) return;
+
+      let list = getSavedList(BOOKMARKS_KEY);
+      container.innerHTML = "";
+
+      if(list.length === 0){
+        container.innerHTML = `
+          <div class="emptyBox">
+            No bookmarks yet.<br>
+            Open any Quran page, tap once, then press 🔖.
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(function(item, index){
+        let row = document.createElement("div");
+        row.className = "listItem";
+
+        row.innerHTML = `
+          <div style="flex:1;min-width:0;">
+            <div class="listItemTitle">${item.surahName || "Surah"}</div>
+            <div class="listItemSub">${item.surahArabic || ""}</div>
+            <div class="listItemSub">Saved: ${item.savedAt || ""}</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="listItemRight">Page ${item.page}</div>
+            <button class="deleteSmallBtn" onclick="deleteBookmark(event, ${index})">Delete</button>
+          </div>
+        `;
+
+        row.onclick = function(){
+          openReadingPage(Number(item.page));
+        };
+
+        container.appendChild(row);
+      });
+    }
+
+    /* =========================
+       DELETE BOOKMARK
+    ========================= */
+    function deleteBookmark(event, index){
+      event.stopPropagation();
+
+      let list = getSavedList(BOOKMARKS_KEY);
+      list.splice(index, 1);
+
+      setSavedList(BOOKMARKS_KEY, list);
+      renderBookmarksList();
+      updateSaveButtonsState();
+      showToast("Bookmark removed");
+    }
+
+    /* =========================
+       OPEN FAVORITE PAGE
+    ========================= */
+    function openFavoritePage(){
+      hideAllPages();
+
+      let favoritesPage = document.getElementById("favoritesPage");
+      if(favoritesPage) favoritesPage.style.display = "block";
+
+      showBottomBar();
+      renderFavoritesList();
+    }
+
+    /* =========================
+       CLOSE FAVORITE PAGE
+    ========================= */
+    function closeFavoritePage(){
+      openHomePage();
+    }
+
+    /* =========================
+       RENDER FAVORITES LIST
+    ========================= */
+    function renderFavoritesList(){
+      let container = document.getElementById("favoritesList");
+      if(!container) return;
+
+      let list = getSavedList(FAVORITES_KEY);
+      container.innerHTML = "";
+
+      if(list.length === 0){
+        container.innerHTML = `
+          <div class="emptyBox">
+            No favorite pages yet.<br>
+            Open any Quran page, tap once, then press ⭐.
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(function(item, index){
+        let row = document.createElement("div");
+        row.className = "listItem";
+
+        row.innerHTML = `
+          <div style="flex:1;min-width:0;">
+            <div class="listItemTitle">${item.surahName || "Surah"}</div>
+            <div class="listItemSub">${item.surahArabic || ""}</div>
+            <div class="listItemSub">Saved: ${item.savedAt || ""}</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="listItemRight">Page ${item.page}</div>
+            <button class="deleteSmallBtn" onclick="deleteFavorite(event, ${index})">Delete</button>
+          </div>
+        `;
+
+        row.onclick = function(){
+          openReadingPage(Number(item.page));
+        };
+
+        container.appendChild(row);
+      });
+    }
+
+    /* =========================
+       DELETE FAVORITE
+    ========================= */
+    function deleteFavorite(event, index){
+      event.stopPropagation();
+
+      let list = getSavedList(FAVORITES_KEY);
+      list.splice(index, 1);
+
+      setSavedList(FAVORITES_KEY, list);
+      renderFavoritesList();
+      updateSaveButtonsState();
+      showToast("Favorite removed");
+    }
+
+    /* =========================
+       SHOW TOAST
+    ========================= */
+    function showToast(message){
+      let toast = document.getElementById("toastMessage");
+      if(!toast) return;
+
+      toast.innerHTML = message;
+      toast.classList.add("show");
+
+      setTimeout(function(){
+        toast.classList.remove("show");
+      }, 1600);
+    }
+
+    /* =========================
+       START APP
+    ========================= */
+    openHomePage();
   </script>
 
 </body>
