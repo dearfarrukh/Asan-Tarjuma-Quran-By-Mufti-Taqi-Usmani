@@ -76,6 +76,7 @@
       text-align:center;
       margin-bottom:22px;
       padding-top:6px;
+      position:relative;
     }
 
     #homeTitle{
@@ -84,12 +85,29 @@
       color:#111111;
       letter-spacing:-0.3px;
       margin-bottom:8px;
+      padding:0 48px;
     }
 
     #homeSubtitle{
       font-size:14px;
       color:#666666;
       line-height:1.5;
+    }
+
+    #homeRefreshBtn{
+      position:absolute;
+      top:0;
+      right:0;
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:#ffffff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      font-size:19px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     /* =========================
@@ -242,9 +260,16 @@
       justify-content:center;
     }
 
+    #readingLeftButtons{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      z-index:3;
+    }
+
     #readingTitleCenter{
       position:absolute;
-      left:70px;
+      left:116px;
       right:116px;
       top:10px;
       bottom:8px;
@@ -278,6 +303,7 @@
       align-items:center;
       gap:10px;
       margin-left:auto;
+      z-index:3;
     }
 
     .savedBtnActive{
@@ -286,7 +312,7 @@
     }
 
     /* =========================
-       PAGE VIEWER
+       PAGE VIEWER - URDU BOOK STYLE
     ========================= */
     #pageViewer{
       position:absolute;
@@ -299,10 +325,13 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      touch-action:pan-y;
+      touch-action:none;
     }
 
-    #quranPageImage{
+    #underPageImage{
+      position:absolute;
+      top:0;
+      left:0;
       width:100%;
       height:100%;
       object-fit:fill;
@@ -312,8 +341,38 @@
       -webkit-user-drag:none;
       pointer-events:none;
       background:#f7f1e4;
-      transition:transform 0.22s ease;
+      z-index:1;
+      transform:translateX(0);
+    }
+
+    #quranPageImage{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:fill;
+      object-position:center top;
+      display:block;
+      user-select:none;
+      -webkit-user-drag:none;
+      pointer-events:none;
+      background:#f7f1e4;
+      transition:transform 0.24s ease;
       will-change:transform;
+      z-index:3;
+    }
+
+    #pageShade{
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:30%;
+      background:linear-gradient(90deg, rgba(0,0,0,0.20), rgba(0,0,0,0));
+      opacity:0;
+      pointer-events:none;
+      z-index:4;
+      transition:opacity 0.18s ease;
     }
 
     #readingPlaceholder{
@@ -331,6 +390,7 @@
       line-height:1.5;
       pointer-events:none;
       display:none;
+      z-index:5;
     }
 
     /* =========================
@@ -548,12 +608,12 @@
       }
 
       #readingTitleCenter{
-        left:66px;
+        left:112px;
         right:112px;
       }
 
       #readingSurahTitle{
-        font-size:14px;
+        font-size:13px;
       }
 
       .topCircleBtn{
@@ -577,6 +637,7 @@
            HOME TITLE AREA
       ========================= -->
       <div id="homeTitleWrap">
+        <button id="homeRefreshBtn" onclick="refreshQuranApp()">↻</button>
         <div id="homeTitle">Asan Tarjuma Quran</div>
         <div id="homeSubtitle">Choose from the cards below</div>
       </div>
@@ -620,10 +681,11 @@
       ========================= -->
       <div id="readingTopBar">
 
-        <!-- BACK BUTTON -->
-        <button id="readingBackBtn" class="topCircleBtn" onclick="closeReadingPage(event)">
-          ←
-        </button>
+        <!-- LEFT BUTTONS -->
+        <div id="readingLeftButtons">
+          <button id="readingBackBtn" class="topCircleBtn" onclick="closeReadingPage(event)">←</button>
+          <button id="readingRefreshBtn" class="topCircleBtn" onclick="refreshQuranAppFromReading(event)">↻</button>
+        </div>
 
         <!-- CENTER TITLE -->
         <div id="readingTitleCenter">
@@ -633,17 +695,8 @@
 
         <!-- RIGHT BUTTONS -->
         <div id="readingRightButtons">
-
-          <!-- BOOKMARK BUTTON -->
-          <button id="readingBookmarkBtn" class="topCircleBtn" onclick="saveCurrentBookmark(event)">
-            🔖
-          </button>
-
-          <!-- FAVORITE BUTTON -->
-          <button id="readingFavoriteBtn" class="topCircleBtn" onclick="saveCurrentFavorite(event)">
-            ⭐
-          </button>
-
+          <button id="readingBookmarkBtn" class="topCircleBtn" onclick="saveCurrentBookmark(event)">🔖</button>
+          <button id="readingFavoriteBtn" class="topCircleBtn" onclick="saveCurrentFavorite(event)">⭐</button>
         </div>
       </div>
 
@@ -651,7 +704,9 @@
            PAGE VIEWER
       ========================= -->
       <div id="pageViewer">
+        <img id="underPageImage" src="" alt="Next Quran Page" />
         <img id="quranPageImage" src="" alt="Quran Page" />
+        <div id="pageShade"></div>
         <div id="readingPlaceholder">Page 0</div>
       </div>
 
@@ -741,6 +796,7 @@
     let quranDidSwipe = false;
     let currentDragX = 0;
     let dragTurnThreshold = 70;
+    let quranSlideDirection = "";
 
     let readingControlsVisible = false;
 
@@ -749,6 +805,7 @@
     ========================= */
     const BOOKMARKS_KEY = "asanTarjumaBookmarks";
     const FAVORITES_KEY = "asanTarjumaFavorites";
+    const LAST_PAGE_KEY = "asanTarjumaLastPage";
 
     /* =========================
        SURAH TO PAGE MAP
@@ -1117,9 +1174,11 @@
     ========================= */
     function loadQuranPageImage(pageNumber){
       let pageImage = document.getElementById("quranPageImage");
+      let underPageImage = document.getElementById("underPageImage");
       let placeholder = document.getElementById("readingPlaceholder");
 
       currentQuranPage = pageNumber;
+      localStorage.setItem(LAST_PAGE_KEY, String(currentQuranPage));
 
       let imagePath = getQuranPageImagePath(pageNumber);
 
@@ -1129,10 +1188,15 @@
         pageImage.src = imagePath;
       }
 
+      if(underPageImage){
+        underPageImage.src = imagePath;
+      }
+
       if(placeholder){
         placeholder.innerHTML = "Page " + pageNumber;
       }
 
+      resetPageShade();
       updateReadingTopBarInfo();
       updateSaveButtonsState();
     }
@@ -1155,6 +1219,30 @@
     }
 
     /* =========================
+       SET UNDER PAGE FOR URDU BOOK SLIDE
+       right drag = next page
+       left drag = previous page
+    ========================= */
+    function setUnderPageForSlide(direction){
+      let underPageImage = document.getElementById("underPageImage");
+      if(!underPageImage) return;
+
+      let previewPage = currentQuranPage;
+
+      if(direction === "next"){
+        previewPage = currentQuranPage + 1;
+        if(previewPage > 1975) previewPage = 1975;
+      }
+
+      if(direction === "previous"){
+        previewPage = currentQuranPage - 1;
+        if(previewPage < 0) previewPage = 0;
+      }
+
+      underPageImage.src = getQuranPageImagePath(previewPage);
+    }
+
+    /* =========================
        HANDLE QURAN TOUCH START
     ========================= */
     function handleQuranTouchStart(event){
@@ -1162,6 +1250,7 @@
 
       quranIsDragging = true;
       quranDidSwipe = false;
+      quranSlideDirection = "";
 
       quranTouchStartX = event.touches[0].clientX;
       quranTouchStartY = event.touches[0].clientY;
@@ -1172,6 +1261,8 @@
       if(pageImage){
         pageImage.style.transition = "none";
       }
+
+      resetPageShade();
     }
 
     /* =========================
@@ -1193,16 +1284,21 @@
         event.preventDefault();
       }
 
-      let limitedDragX = currentDragX;
-
-      if(limitedDragX > 95) limitedDragX = 95;
-      if(limitedDragX < -95) limitedDragX = -95;
+      if(currentDragX > 0){
+        quranSlideDirection = "next";
+        setUnderPageForSlide("next");
+      }else if(currentDragX < 0){
+        quranSlideDirection = "previous";
+        setUnderPageForSlide("previous");
+      }
 
       let pageImage = document.getElementById("quranPageImage");
 
       if(pageImage){
-        pageImage.style.transform = "translateX(" + limitedDragX + "px)";
+        pageImage.style.transform = "translateX(" + currentDragX + "px)";
       }
+
+      updatePageShade(currentDragX);
     }
 
     /* =========================
@@ -1220,29 +1316,28 @@
       let pageImage = document.getElementById("quranPageImage");
 
       if(pageImage){
-        pageImage.style.transition = "transform 0.22s ease";
+        pageImage.style.transition = "transform 0.24s ease";
       }
 
       if(Math.abs(swipeDistance) < dragTurnThreshold){
-        if(pageImage){
-          pageImage.style.transform = "translateX(0px)";
-        }
+        resetPageSlide();
         return;
       }
 
       quranDidSwipe = true;
 
-      if(swipeDistance < 0){
-        slideToPreviousQuranPage();
+      if(swipeDistance > 0){
+        completeSlideToNextQuranPage();
       }else{
-        slideToNextQuranPage();
+        completeSlideToPreviousQuranPage();
       }
     }
 
     /* =========================
-       SLIDE TO NEXT QURAN PAGE
+       COMPLETE SLIDE TO NEXT QURAN PAGE
+       Urdu book style: swipe right = next page
     ========================= */
-    function slideToNextQuranPage(){
+    function completeSlideToNextQuranPage(){
       if(currentQuranPage >= 1975){
         resetPageSlide();
         showToast("Last page");
@@ -1251,6 +1346,8 @@
 
       let pageImage = document.getElementById("quranPageImage");
 
+      setUnderPageForSlide("next");
+
       if(pageImage){
         pageImage.style.transform = "translateX(100%)";
       }
@@ -1258,23 +1355,14 @@
       setTimeout(function(){
         currentQuranPage++;
         loadQuranPageImage(currentQuranPage);
-
-        if(pageImage){
-          pageImage.style.transition = "none";
-          pageImage.style.transform = "translateX(-100%)";
-
-          setTimeout(function(){
-            pageImage.style.transition = "transform 0.22s ease";
-            pageImage.style.transform = "translateX(0px)";
-          }, 20);
-        }
-      }, 170);
+      }, 230);
     }
 
     /* =========================
-       SLIDE TO PREVIOUS QURAN PAGE
+       COMPLETE SLIDE TO PREVIOUS QURAN PAGE
+       Urdu book style: swipe left = previous page
     ========================= */
-    function slideToPreviousQuranPage(){
+    function completeSlideToPreviousQuranPage(){
       if(currentQuranPage <= 0){
         resetPageSlide();
         showToast("First page");
@@ -1283,6 +1371,8 @@
 
       let pageImage = document.getElementById("quranPageImage");
 
+      setUnderPageForSlide("previous");
+
       if(pageImage){
         pageImage.style.transform = "translateX(-100%)";
       }
@@ -1290,17 +1380,7 @@
       setTimeout(function(){
         currentQuranPage--;
         loadQuranPageImage(currentQuranPage);
-
-        if(pageImage){
-          pageImage.style.transition = "none";
-          pageImage.style.transform = "translateX(100%)";
-
-          setTimeout(function(){
-            pageImage.style.transition = "transform 0.22s ease";
-            pageImage.style.transform = "translateX(0px)";
-          }, 20);
-        }
-      }, 170);
+      }, 230);
     }
 
     /* =========================
@@ -1310,9 +1390,43 @@
       let pageImage = document.getElementById("quranPageImage");
 
       if(pageImage){
-        pageImage.style.transition = "transform 0.22s ease";
+        pageImage.style.transition = "transform 0.24s ease";
         pageImage.style.transform = "translateX(0px)";
       }
+
+      resetPageShade();
+    }
+
+    /* =========================
+       UPDATE PAGE SHADE
+    ========================= */
+    function updatePageShade(dragX){
+      let shade = document.getElementById("pageShade");
+      if(!shade) return;
+
+      let opacity = Math.min(Math.abs(dragX) / 180, 0.45);
+
+      shade.style.opacity = opacity.toString();
+
+      if(dragX > 0){
+        shade.style.left = "0";
+        shade.style.right = "auto";
+        shade.style.transform = "scaleX(1)";
+      }else{
+        shade.style.right = "0";
+        shade.style.left = "auto";
+        shade.style.transform = "scaleX(-1)";
+      }
+    }
+
+    /* =========================
+       RESET PAGE SHADE
+    ========================= */
+    function resetPageShade(){
+      let shade = document.getElementById("pageShade");
+      if(!shade) return;
+
+      shade.style.opacity = "0";
     }
 
     /* =========================
@@ -1706,6 +1820,24 @@
       renderFavoritesList();
       updateSaveButtonsState();
       showToast("Favorite removed");
+    }
+
+    /* =========================
+       REFRESH QURAN APP
+    ========================= */
+    function refreshQuranApp(){
+      window.location.reload();
+    }
+
+    /* =========================
+       REFRESH QURAN APP FROM READING
+    ========================= */
+    function refreshQuranAppFromReading(event){
+      if(event){
+        event.stopPropagation();
+      }
+
+      window.location.reload();
     }
 
     /* =========================
