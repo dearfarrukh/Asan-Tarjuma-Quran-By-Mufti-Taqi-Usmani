@@ -110,30 +110,94 @@
       justify-content:center;
     }
 
-    /* =========================
-       HOME RESUME BUTTON
-    ========================= */
-    #homeResumeBtn{
-      margin:14px auto 0 auto;
-      width:86%;
-      max-width:360px;
-      border:none;
-      border-radius:999px;
-      background:#111111;
-      color:#ffffff;
-      padding:14px 18px;
-      font-size:16px;
-      font-weight:800;
-      box-shadow:0 8px 20px rgba(0,0,0,0.16);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
+   /* =========================
+   HOME RESUME CARD
+========================= */
+#homeResumeBtn{
+  width:100%;
+  min-height:96px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
+  border:none;
+  margin:14px auto 0 auto;
+  background:transparent;
+  padding:0;
+  display:block;
+}
 
-    #homeResumeBtn:active{
-      transform:scale(0.98);
-    }
+#homeResumeBtn:active{
+  transform:scale(0.98);
+}
+
+.resumeCardInner{
+  position:relative;
+  width:100%;
+  min-height:96px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:0 24px 0 20px;
+  background:#ffffff;
+  border:2px solid #111111;
+  border-radius:999px;
+  box-shadow:0 10px 24px rgba(0,0,0,0.10);
+  overflow:hidden;
+}
+
+.resumeCardInner::before,
+.resumeCardInner::after{
+  content:"";
+  position:absolute;
+  width:34px;
+  height:34px;
+  opacity:0.9;
+  pointer-events:none;
+}
+
+.resumeCardInner::before{
+  top:12px;
+  left:12px;
+  border-top:2px solid #111111;
+  border-left:2px solid #111111;
+  border-top-left-radius:14px;
+}
+
+.resumeCardInner::after{
+  right:12px;
+  bottom:12px;
+  border-right:2px solid #111111;
+  border-bottom:2px solid #111111;
+  border-bottom-right-radius:14px;
+}
+
+.resumeCardIcon{
+  width:56px;
+  min-width:56px;
+  height:56px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  background:#f7f7f7;
+  border:2px solid #111111;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  position:relative;
+  z-index:2;
+}
+
+.resumeCardText{
+  flex:1;
+  font-size:22px;
+  font-weight:800;
+  color:#111111;
+  letter-spacing:-0.3px;
+  line-height:1.1;
+  position:relative;
+  z-index:2;
+  text-align:left;
+}
 
     /* =========================
        QURAN HOME CARDS
@@ -607,11 +671,9 @@
         font-size:13px;
       }
 
-      #homeResumeBtn{
-        width:92%;
-        font-size:15px;
-        padding:13px 16px;
-      }
+     #homeResumeBtn{
+  width:100%;
+}
 
       #quranHomeCards{
         gap:14px;
@@ -672,12 +734,15 @@
         <div id="homeTitle">Asan Tarjuma Quran</div>
         <div id="homeSubtitle">Choose from the cards below</div>
 
-        <!-- =========================
-             RESUME LAST READING BUTTON
-        ========================= -->
-        <button id="homeResumeBtn" onclick="resumeLastQuranPage()">
-          ▶ Resume Last Reading
-        </button>
+       <!-- =========================
+     RESUME LAST READING BUTTON
+========================= -->
+<button id="homeResumeBtn" onclick="resumeLastQuranPage()">
+  <div class="resumeCardInner">
+    <div class="resumeCardIcon">▶</div>
+    <div class="resumeCardText">Resume Last Reading</div>
+  </div>
+</button>
       </div>
 
       <!-- =========================
