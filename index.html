@@ -111,6 +111,31 @@
     }
 
     /* =========================
+       HOME RESUME BUTTON
+    ========================= */
+    #homeResumeBtn{
+      margin:14px auto 0 auto;
+      width:86%;
+      max-width:360px;
+      border:none;
+      border-radius:999px;
+      background:#111111;
+      color:#ffffff;
+      padding:14px 18px;
+      font-size:16px;
+      font-weight:800;
+      box-shadow:0 8px 20px rgba(0,0,0,0.16);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    #homeResumeBtn:active{
+      transform:scale(0.98);
+    }
+
+    /* =========================
        QURAN HOME CARDS
     ========================= */
     #quranHomeCards{
@@ -582,6 +607,12 @@
         font-size:13px;
       }
 
+      #homeResumeBtn{
+        width:92%;
+        font-size:15px;
+        padding:13px 16px;
+      }
+
       #quranHomeCards{
         gap:14px;
       }
@@ -640,6 +671,13 @@
         <button id="homeRefreshBtn" onclick="refreshQuranApp()">↻</button>
         <div id="homeTitle">Asan Tarjuma Quran</div>
         <div id="homeSubtitle">Choose from the cards below</div>
+
+        <!-- =========================
+             RESUME LAST READING BUTTON
+        ========================= -->
+        <button id="homeResumeBtn" onclick="resumeLastQuranPage()">
+          ▶ Resume Last Reading
+        </button>
       </div>
 
       <!-- =========================
@@ -1110,6 +1148,36 @@
       updateSaveButtonsState();
 
       hideBottomBar();
+    }
+
+    /* =========================
+       RESUME LAST QURAN PAGE
+    ========================= */
+    function resumeLastQuranPage(){
+
+      let savedPage = localStorage.getItem(LAST_PAGE_KEY);
+
+      if(!savedPage && savedPage !== "0"){
+        showToast("No saved reading page yet");
+        return;
+      }
+
+      savedPage = Number(savedPage);
+
+      if(isNaN(savedPage)){
+        showToast("No saved reading page yet");
+        return;
+      }
+
+      if(savedPage < 0){
+        savedPage = 0;
+      }
+
+      if(savedPage > 1975){
+        savedPage = 1975;
+      }
+
+      openReadingPage(savedPage);
     }
 
     /* =========================
