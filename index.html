@@ -24,7 +24,7 @@
       height:100%;
       overflow:hidden;
       font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      background:#f5f5f7;
+      background:#ffffff;
     }
 
     body{
@@ -49,7 +49,7 @@
       width:100%;
       height:100%;
       overflow:hidden;
-      background:#f5f5f7;
+      background:#ffffff;
     }
 
     /* =========================
@@ -64,8 +64,8 @@
       bottom:78px;
       overflow-y:auto;
       -webkit-overflow-scrolling:touch;
-      padding:22px 16px 24px 16px;
-      background:linear-gradient(180deg, #f7f7f9 0%, #ececf1 100%);
+      padding:26px 18px 28px 18px;
+      background:#ffffff;
     }
 
     /* =========================
@@ -74,8 +74,8 @@
     #homeTitleWrap{
       width:100%;
       text-align:center;
-      margin-bottom:22px;
-      padding-top:6px;
+      margin-bottom:26px;
+      padding-top:8px;
       position:relative;
     }
 
@@ -85,12 +85,12 @@
       color:#111111;
       letter-spacing:-0.3px;
       margin-bottom:8px;
-      padding:0 48px;
+      padding:0 50px;
     }
 
     #homeSubtitle{
       font-size:14px;
-      color:#666666;
+      color:#888888;
       line-height:1.5;
     }
 
@@ -104,6 +104,7 @@
       border-radius:50%;
       background:#ffffff;
       box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      color:#333333;
       font-size:19px;
       display:flex;
       align-items:center;
@@ -116,11 +117,11 @@
     #quranHomeCards{
       display:flex;
       flex-direction:column;
-      gap:18px;
+      gap:16px;
       width:100%;
       max-width:700px;
       margin:0 auto;
-      padding:10px 10px 20px 10px;
+      padding:8px 6px 20px 6px;
     }
 
     /* =========================
@@ -128,8 +129,8 @@
     ========================= */
     .quranHomeCard{
       width:100%;
-      min-height:110px;
-      border-radius:999px;
+      min-height:104px;
+      border-radius:22px;
       cursor:pointer;
       transition:transform 0.18s ease, box-shadow 0.18s ease;
     }
@@ -148,35 +149,21 @@
       gap:18px;
       padding:0 24px 0 20px;
       background:#ffffff;
-      border:2px solid #111111;
-      box-shadow:0 10px 24px rgba(0,0,0,0.10);
+      border:1px solid #ededf0;
+      border-radius:22px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.08);
       overflow:hidden;
     }
 
-    .codedCard::before,
-    .codedCard::after{
+    .codedCard::before{
       content:"";
       position:absolute;
-      width:34px;
-      height:34px;
-      opacity:0.9;
+      top:0;
+      left:0;
+      bottom:0;
+      width:6px;
+      background:linear-gradient(180deg, #3a3a3c, #1c1c1e);
       pointer-events:none;
-    }
-
-    .codedCard::before{
-      top:12px;
-      left:12px;
-      border-top:2px solid #111111;
-      border-left:2px solid #111111;
-      border-top-left-radius:14px;
-    }
-
-    .codedCard::after{
-      right:12px;
-      bottom:12px;
-      border-right:2px solid #111111;
-      border-bottom:2px solid #111111;
-      border-bottom-right-radius:14px;
     }
 
     .codedCardIcon{
@@ -187,21 +174,22 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:34px;
-      background:#f7f7f7;
-      border:2px solid #111111;
-      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      font-size:32px;
+      color:#222222;
+      background:#f6f6f8;
+      border:1px solid #e8e8ec;
+      box-shadow:inset 0 1px 2px rgba(255,255,255,0.8), 0 3px 8px rgba(0,0,0,0.06);
       position:relative;
       z-index:2;
     }
 
     .codedCardText{
       flex:1;
-      font-size:26px;
+      font-size:23px;
       font-weight:800;
       color:#111111;
       letter-spacing:-0.3px;
-      line-height:1.1;
+      line-height:1.15;
       position:relative;
       z-index:2;
       text-align:left;
@@ -217,7 +205,7 @@
       left:0;
       right:0;
       bottom:0;
-      background:#d9d0c2;
+      background:#ffffff;
       overflow:hidden;
       z-index:20;
     }
@@ -231,7 +219,7 @@
       left:0;
       right:0;
       height:68px;
-      background:rgba(248,248,248,0.96);
+      background:rgba(255,255,255,0.96);
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(0,0,0,0.07);
@@ -254,6 +242,7 @@
       border-radius:50%;
       background:#ffffff;
       box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      color:#333333;
       font-size:20px;
       display:flex;
       align-items:center;
@@ -284,7 +273,7 @@
     #readingSurahTitle{
       font-size:15px;
       font-weight:800;
-      color:#111;
+      color:#111111;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -294,7 +283,7 @@
     #readingPageNumber{
       font-size:12px;
       font-weight:700;
-      color:#666;
+      color:#888888;
       margin-top:2px;
     }
 
@@ -320,7 +309,7 @@
       left:0;
       right:0;
       bottom:0;
-      background:#d9d0c2;
+      background:#ffffff;
       overflow:hidden;
       display:flex;
       align-items:center;
@@ -340,7 +329,7 @@
       user-select:none;
       -webkit-user-drag:none;
       pointer-events:none;
-      background:#f7f1e4;
+      background:#ffffff;
       z-index:1;
       transform:translateX(0);
     }
@@ -357,7 +346,7 @@
       user-select:none;
       -webkit-user-drag:none;
       pointer-events:none;
-      background:#f7f1e4;
+      background:#ffffff;
       transition:transform 0.24s ease;
       will-change:transform;
       z-index:3;
@@ -380,7 +369,7 @@
       left:50%;
       top:50%;
       transform:translate(-50%, -50%);
-      background:rgba(255,255,255,0.88);
+      background:rgba(255,255,255,0.92);
       padding:14px 18px;
       border-radius:16px;
       font-size:14px;
@@ -394,30 +383,68 @@
     }
 
     /* =========================
-       LIST PAGE COMMON
+       SHEET BACKDROP (DIM + TAP TO CLOSE)
     ========================= */
-    .listPage{
+    #sheetBackdrop{
       display:none;
       position:absolute;
       top:0;
       left:0;
       right:0;
-      bottom:78px;
-      background:#f5f5f7;
+      bottom:0;
+      background:rgba(0,0,0,0.40);
+      opacity:0;
+      transition:opacity 0.28s ease;
+      z-index:150;
+    }
+
+    #sheetBackdrop.show{
+      display:block;
+      opacity:1;
+    }
+
+    /* =========================
+       LIST PAGE COMMON - BOTTOM SHEET 75%
+    ========================= */
+    .listPage{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:75%;
+      background:#ffffff;
       overflow-y:auto;
       -webkit-overflow-scrolling:touch;
-      padding:12px;
-      z-index:10;
+      padding:0 12px 16px 12px;
+      border-top-left-radius:26px;
+      border-top-right-radius:26px;
+      box-shadow:0 -10px 40px rgba(0,0,0,0.18);
+      transform:translateY(100%);
+      transition:transform 0.30s cubic-bezier(0.22, 0.61, 0.36, 1);
+      z-index:160;
+    }
+
+    .listPage.show{
+      transform:translateY(0);
+    }
+
+    /* GRABBER HANDLE */
+    .sheetHandle{
+      width:42px;
+      height:5px;
+      border-radius:999px;
+      background:#d8d8de;
+      margin:10px auto 4px auto;
     }
 
     .listTopBar{
       position:sticky;
       top:0;
       z-index:50;
-      background:rgba(255,255,255,0.95);
+      background:rgba(255,255,255,0.97);
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
-      padding:10px;
+      padding:6px 4px 10px 4px;
       display:flex;
       align-items:center;
       gap:10px;
@@ -429,8 +456,9 @@
       height:40px;
       border:none;
       border-radius:50%;
-      background:#ffffff;
-      box-shadow:0 4px 12px rgba(0,0,0,0.10);
+      background:#f3f3f5;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
+      color:#333333;
       font-size:18px;
       display:flex;
       align-items:center;
@@ -440,7 +468,7 @@
     .listTitle{
       font-size:18px;
       font-weight:800;
-      color:#111;
+      color:#111111;
     }
 
     .listContainer{
@@ -457,41 +485,43 @@
       gap:12px;
       padding:14px 16px;
       background:#ffffff;
+      border:1px solid #ededf0;
       border-radius:18px;
-      box-shadow:0 6px 14px rgba(0,0,0,0.06);
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
       cursor:pointer;
     }
 
     .listItemTitle{
       font-size:15px;
       font-weight:800;
-      color:#111;
+      color:#111111;
     }
 
     .listItemSub{
       font-size:13px;
-      color:#666;
+      color:#888888;
       margin-top:3px;
     }
 
     .listItemRight{
       font-size:15px;
       font-weight:800;
-      color:#111;
+      color:#111111;
       margin-left:10px;
       white-space:nowrap;
     }
 
     .emptyBox{
       background:#ffffff;
+      border:1px solid #ededf0;
       border-radius:20px;
       padding:18px;
       font-size:15px;
       font-weight:700;
-      color:#666;
+      color:#888888;
       text-align:center;
       line-height:1.5;
-      box-shadow:0 6px 14px rgba(0,0,0,0.06);
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
 
     .deleteSmallBtn{
@@ -513,7 +543,7 @@
       right:0;
       bottom:0;
       height:78px;
-      background:rgba(255,255,255,0.96);
+      background:rgba(255,255,255,0.97);
       backdrop-filter:blur(16px);
       -webkit-backdrop-filter:blur(16px);
       border-top:1px solid rgba(0,0,0,0.08);
@@ -534,7 +564,7 @@
       text-align:center;
       font-size:12px;
       font-weight:700;
-      color:#222222;
+      color:#333333;
       line-height:1.2;
       cursor:pointer;
     }
@@ -553,7 +583,7 @@
       left:50%;
       bottom:95px;
       transform:translateX(-50%);
-      background:rgba(0,0,0,0.84);
+      background:rgba(0,0,0,0.88);
       color:white;
       padding:10px 14px;
       border-radius:999px;
@@ -583,15 +613,15 @@
       }
 
       #quranHomeCards{
-        gap:14px;
+        gap:13px;
       }
 
       .quranHomeCard{
-        min-height:96px;
+        min-height:92px;
       }
 
       .codedCard{
-        padding:0 20px 0 16px;
+        padding:0 20px 0 18px;
         gap:14px;
       }
 
@@ -599,12 +629,12 @@
         width:56px;
         min-width:56px;
         height:56px;
-        font-size:30px;
+        font-size:28px;
         border-radius:16px;
       }
 
       .codedCardText{
-        font-size:22px;
+        font-size:20px;
       }
 
       #readingTitleCenter{
@@ -721,9 +751,16 @@
     </div>
 
     <!-- =========================
+         SHEET BACKDROP (DIM + TAP TO CLOSE)
+    ========================= -->
+    <div id="sheetBackdrop" onclick="closeAllSheets()"></div>
+
+    <!-- =========================
          SURAH INDEX PAGE
     ========================= -->
     <div id="surahIndexPage" class="listPage">
+
+      <div class="sheetHandle"></div>
 
       <div class="listTopBar">
         <button class="listBackBtn" onclick="closeSurahIndexPage()">←</button>
@@ -739,6 +776,8 @@
     ========================= -->
     <div id="bookmarksPage" class="listPage">
 
+      <div class="sheetHandle"></div>
+
       <div class="listTopBar">
         <button class="listBackBtn" onclick="closeBookmarksPage()">←</button>
         <div class="listTitle">Bookmarks</div>
@@ -752,6 +791,8 @@
          FAVORITES PAGE
     ========================= -->
     <div id="favoritesPage" class="listPage">
+
+      <div class="sheetHandle"></div>
 
       <div class="listTopBar">
         <button class="listBackBtn" onclick="closeFavoritePage()">←</button>
@@ -1061,15 +1102,37 @@
     function hideAllPages(){
       let homePage = document.getElementById("homePage");
       let readingPage = document.getElementById("readingPage");
-      let surahIndexPage = document.getElementById("surahIndexPage");
-      let bookmarksPage = document.getElementById("bookmarksPage");
-      let favoritesPage = document.getElementById("favoritesPage");
 
       if(homePage) homePage.style.display = "none";
       if(readingPage) readingPage.style.display = "none";
-      if(surahIndexPage) surahIndexPage.style.display = "none";
-      if(bookmarksPage) bookmarksPage.style.display = "none";
-      if(favoritesPage) favoritesPage.style.display = "none";
+
+      closeAllSheets();
+    }
+
+    /* =========================
+       CLOSE ALL SHEETS (BOTTOM SHEETS + BACKDROP)
+    ========================= */
+    function closeAllSheets(){
+      let surahIndexPage = document.getElementById("surahIndexPage");
+      let bookmarksPage = document.getElementById("bookmarksPage");
+      let favoritesPage = document.getElementById("favoritesPage");
+      let backdrop = document.getElementById("sheetBackdrop");
+
+      if(surahIndexPage) surahIndexPage.classList.remove("show");
+      if(bookmarksPage) bookmarksPage.classList.remove("show");
+      if(favoritesPage) favoritesPage.classList.remove("show");
+      if(backdrop) backdrop.classList.remove("show");
+    }
+
+    /* =========================
+       SHOW SHEET (OPEN A BOTTOM SHEET)
+    ========================= */
+    function showSheet(sheetId){
+      let backdrop = document.getElementById("sheetBackdrop");
+      let sheet = document.getElementById(sheetId);
+
+      if(backdrop) backdrop.classList.add("show");
+      if(sheet) sheet.classList.add("show");
     }
 
     /* =========================
@@ -1471,20 +1534,15 @@
        OPEN SURAH INDEX PAGE
     ========================= */
     function openSurahIndexPage(){
-      hideAllPages();
-
-      let surahIndexPage = document.getElementById("surahIndexPage");
-      if(surahIndexPage) surahIndexPage.style.display = "block";
-
-      showBottomBar();
       renderSurahList();
+      showSheet("surahIndexPage");
     }
 
     /* =========================
        CLOSE SURAH INDEX PAGE
     ========================= */
     function closeSurahIndexPage(){
-      openHomePage();
+      closeAllSheets();
     }
 
     /* =========================
@@ -1704,20 +1762,15 @@
        OPEN BOOKMARKS PAGE
     ========================= */
     function openBookmarksPage(){
-      hideAllPages();
-
-      let bookmarksPage = document.getElementById("bookmarksPage");
-      if(bookmarksPage) bookmarksPage.style.display = "block";
-
-      showBottomBar();
       renderBookmarksList();
+      showSheet("bookmarksPage");
     }
 
     /* =========================
        CLOSE BOOKMARKS PAGE
     ========================= */
     function closeBookmarksPage(){
-      openHomePage();
+      closeAllSheets();
     }
 
     /* =========================
@@ -1784,20 +1837,15 @@
        OPEN FAVORITE PAGE
     ========================= */
     function openFavoritePage(){
-      hideAllPages();
-
-      let favoritesPage = document.getElementById("favoritesPage");
-      if(favoritesPage) favoritesPage.style.display = "block";
-
-      showBottomBar();
       renderFavoritesList();
+      showSheet("favoritesPage");
     }
 
     /* =========================
        CLOSE FAVORITE PAGE
     ========================= */
     function closeFavoritePage(){
-      openHomePage();
+      closeAllSheets();
     }
 
     /* =========================
